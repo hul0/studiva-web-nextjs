@@ -11,12 +11,6 @@ async function fetchMetaData(kind: string, id: string) {
   const workerUrl = process.env.WORKER_URL || 'https://api.studiva.co.in';
   const internalSecret = process.env.INTERNAL_API_SECRET || process.env.NEXT_PUBLIC_INTERNAL_API_SECRET;
 
-  console.log(`[ShareRedirect] DEBUG: Fetching metadata for kind="${kind}", id="${id}"`);
-  console.log(`[ShareRedirect] DEBUG: WORKER_URL="${process.env.WORKER_URL}" (defaulted to ${workerUrl})`);
-  console.log(`[ShareRedirect] DEBUG: INTERNAL_API_SECRET="${process.env.INTERNAL_API_SECRET}"`);
-  console.log(`[ShareRedirect] DEBUG: NEXT_PUBLIC_INTERNAL_API_SECRET="${process.env.NEXT_PUBLIC_INTERNAL_API_SECRET}"`);
-  console.log(`[ShareRedirect] DEBUG: Secret being used: "${internalSecret}"`);
-
   if (!internalSecret) {
     console.error(`[ShareRedirect] ERROR: No internal secret found in environment variables.`);
     return null;
@@ -29,37 +23,27 @@ async function fetchMetaData(kind: string, id: string) {
     'User-Agent': 'Studiva-NextJS-Server/1.0',
   };
 
-  console.log(`[ShareRedirect] DEBUG: Final URL: ${url}`);
-  console.log(`[ShareRedirect] DEBUG: Request Headers:`, JSON.stringify(headers, null, 2));
-
   try {
     const res = await fetch(url, {
       headers,
       next: { revalidate: 3600 }
     });
 
-    console.log(`[ShareRedirect] DEBUG: Response Status: ${res.status} ${res.statusText}`);
-    
-    const responseText = await res.text();
-    console.log(`[ShareRedirect] DEBUG: Raw Response Body: "${responseText}"`);
-
     if (!res.ok) {
-      console.error(`[ShareRedirect] ERROR: API returned non-OK status ${res.status}`);
+      console.error(`[ShareRedirect] ERROR: API returned non-OK status ${res.status} for ${url}`);
       return null;
     }
     
-    const json = JSON.parse(responseText);
+    const json = await res.json();
     return json?.data || null;
   } catch (err: any) {
-    console.error(`[ShareRedirect] EXCEPTION during fetch:`, err?.message || err);
-    if (err?.stack) console.error(err.stack);
+    console.error(`[ShareRedirect] EXCEPTION during fetch for ${kind}/${id}:`, err?.message || err);
     return null;
   }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { kind, id } = await params;
-  console.log(`[ShareRedirect] generateMetadata triggered for kind="${kind}", id="${id}"`);
 
   if (kind !== 'content' && kind !== 'user') {
     return { title: 'Shared Content | Studiva' };
