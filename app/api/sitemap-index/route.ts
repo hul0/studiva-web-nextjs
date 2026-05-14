@@ -13,7 +13,20 @@ export async function GET(req: NextRequest) {
     // Rewrite the sitemap URLs to use our own domain
     const host = req.headers.get('host') || 'studiva.co.in';
     const protocol = host.includes('localhost') ? 'http' : 'https';
-    xml = xml.replace(/https:\/\/cdn\.crine\.in\/sitemaps\//g, `${protocol}://${host}/sitemaps/`);
+    const baseUrl = `${protocol}://${host}`;
+
+    xml = xml.replace(/https:\/\/cdn\.crine.in\/sitemaps\//g, `${baseUrl}/sitemaps/`);
+
+    // Inject static sitemap into the index
+    const staticSitemapEntry = `
+  <sitemap>
+    <loc>${baseUrl}/static-sitemap.xml</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+  </sitemap>`;
+    
+    if (xml.includes('</sitemapindex>')) {
+      xml = xml.replace('</sitemapindex>', `${staticSitemapEntry}\n</sitemapindex>`);
+    }
 
     return new NextResponse(xml, {
       headers: {

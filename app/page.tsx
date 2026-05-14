@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/features/home/Hero';
@@ -9,6 +10,11 @@ import Testimonials from '@/features/home/Testimonials';
 import Comparison from '@/features/home/Comparison';
 import FAQ from '@/features/home/FAQ';
 import FinalCTA from '@/features/home/FinalCTA';
+
+export const metadata: Metadata = {
+  title: "Studiva | Your Academic Companion",
+  description: "The ultimate marketplace for students. Buy and sell notes, earn through rewarded ads, and join a thriving community of creators.",
+};
 
 export default function Home() {
   return (

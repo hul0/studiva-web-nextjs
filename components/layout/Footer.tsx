@@ -206,11 +206,11 @@ const Footer = () => {
             </div>
 
             <div className="footer-b__bottom-area">
-                <h1 className="footer-b__massive-text" ref={massiveTextRef}>
+                <div className="footer-b__massive-text" ref={massiveTextRef}>
                     {FooterText.split('').map((char, index) => (
                         <span key={index} className="footer-letter">{char}</span>
                     ))}
-                </h1>
+                </div>
             </div>
         </footer>
     );

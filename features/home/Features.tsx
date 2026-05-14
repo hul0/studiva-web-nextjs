@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Search, Layers, TrendingUp, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
+import Image from 'next/image';
 import './Features.css';
 
 const Features = () => {
@@ -86,7 +87,7 @@ const Features = () => {
                                     <h2>FIND YOUR NOTES<br /> WITHIN A <span className='flash-text'>FLASH</span></h2>
                                 </div>
                                 <div className="train-avatar-col">
-                                    <img src="/gifs/wally-west-speedster.gif" alt="Wally West Speedster" className="bento-avatar" />
+                                    <Image src="/gifs/wally-west-speedster.gif" alt="Wally West speedster character representing fast note discovery" width={120} height={120} className="bento-avatar" unoptimized />
                                 </div>
                             </div>
                         </div>
@@ -100,7 +101,7 @@ const Features = () => {
                             <div className="bento-card-body bento-split">
                                 <h2>SHARE NOTES<br />EFFORTLESSLY</h2>
                                 <div className="bento-avatar-large-wrapper">
-                                    <img src="/gifs/peepo-cookie-peepo.gif" alt="Lady avatar placeholder" className="bento-avatar-large" />
+                                    <Image src="/gifs/peepo-cookie-peepo.gif" alt="Animated character representing effortless note sharing" width={120} height={120} className="bento-avatar-large" unoptimized />
                                     <div className="bento-check-badge"><CheckCircle2 size={16} color="var(--jet-black)" /></div>
                                 </div>
                             </div>
@@ -110,7 +111,7 @@ const Features = () => {
                         <div className="bento-bottom-row">
                             <div className="bento-item bento-card bento-card-black logotype-card">
                                 <div className="bento-logo-center">
-                                    <img src="/images/studiva-quill-icon.svg" alt="Studiva Logo" className="bento-logo-img" />
+                                    <Image src="/images/studiva-quill-icon.svg" alt="Studiva official quill icon" width={64} height={64} className="bento-logo-img" />
                                     <h2>STUDIVA™</h2>
                                 </div>
                             </div>

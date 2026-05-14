@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import Image from 'next/image';
 import './Team.css';
 
 /* ── Helper: DiceBear Lorelei avatar URL ─────────────── */
@@ -50,10 +51,13 @@ const TeamSection = ({ label, title, members, variant = 'default' }: { label: st
                 {members.map((m, i) => (
                     <div className="tm-card" key={i} data-anim>
                         <div className="tm-card__avatar-wrap">
-                            <img
+                            <Image
                                 className="tm-card__avatar"
                                 src={m.image || avatar(m.seed || m.name)}
                                 alt={m.name}
+                                width={128}
+                                height={128}
+                                unoptimized={!m.image}
                             />
                             {m.tag && <span className="tm-card__tag">{m.tag}</span>}
                         </div>

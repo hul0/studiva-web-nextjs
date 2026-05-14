@@ -1,0 +1,84 @@
+Studiva — Internal Brief for New Team Members
+
+1. What is Studiva
+   Studiva is a centralized academic platform where students can quickly access structured study resources.
+
+Core content types:
+
+- Notes
+- Chapter Summaries
+- Question Banks
+- Organizer (New Edition – key feature)
+- Quizzes
+- Flashcards
+- Mock Tests
+- Playlists
+
+Purpose:
+To eliminate scattered and unorganized study material and provide a searchable, structured system for exam preparation.
+
+2. Core Model (How It Works)
+
+Creators
+
+- Users who upload study materials
+- They can monetize their content
+- They are the supply side of the platform
+
+Students
+
+- Users who consume content
+- They are the demand side
+
+Key dependency:
+No creators → no content
+No users → no value
+
+3. Creator Strategy (Critical)
+
+Positioning
+
+- Focus on earning opportunity
+- Keep income details intentionally vague
+- Do not commit to specific numbers
+
+Messaging
+
+- “You can earn from your notes/resources”
+- “Your content helps others and generates returns”
+
+Important Rule
+Never disclose or estimate earnings. The system is still evolving.
+
+4. Why Students Will Use Studiva
+
+Problems with Existing Solutions
+
+- Telegram channels can get banned → content loss
+- WhatsApp groups are cluttered → poor discoverability
+- Platforms like Makaut Minds:
+  - Too many groups
+  - Repetitive messages
+  - Important content gets buried
+
+Studiva Advantage
+
+- Tagged content (subject code, subject name, etc.)
+- Search-based retrieval
+- Organized repository (not chat-based)
+
+Positioning line:
+“Find what you need instantly, instead of scrolling endlessly.”
+
+5. Content Scope
+   Not limited to notes.
+
+Post anything useful for students:
+
+- Lab reports
+- Assignments
+- Practical guides
+- Exam preparation material
+
+Guideline:
+If it can help a student academically, it belongs on Studiva.
