@@ -1,146 +1,64 @@
 'use client';
 
 import { useEffect, useState, useMemo, useCallback } from 'react';
-import { useParams } from 'next/navigation';
 import './ShareRedirect.css';
 
 const REDIRECT_DELAY = 4000;
 const FALLBACK_DELAY = 6500;
 
-export function ShareRedirectClient() {
-    const params = useParams();
-    
-    if (!params) {
-        return <div className="sr"><div className="sr__spinner" /></div>;
-    }
+// ---------------------------------------------------------------------------
+// Types shared with page.tsx (server passes these as props)
+// ---------------------------------------------------------------------------
+export type ServerMeta = {
+    title: string;
+    pageTitle: string;
+    subtitle: string;
+    description: string;
+    image: string;
+    ogType: 'article' | 'profile';
+    stats: Record<string, number>;
+} | null;
 
-    const kind = params.kind as string;
-    const id = params.id as string;
+type Props = {
+    kind: string;
+    id: string;
+    serverMeta: ServerMeta;
+};
 
+// ---------------------------------------------------------------------------
+// ShareRedirectClient
+//
+// Receives all display data via server-rendered props — no client-side API
+// calls, no client-side meta injection. OG tags are handled entirely by
+// generateMetadata in page.tsx (server component).
+//
+// The client component is responsible only for:
+//  1. Rendering the preview card UI
+//  2. Deep-link redirect countdown + fallback
+// ---------------------------------------------------------------------------
+export function ShareRedirectClient({ kind, id, serverMeta }: Props) {
     const { deepLink, typeLabel } = useMemo(() => {
-        let dl = 'studiva://home';
-        let tl = 'App';
+        const typeMap: Record<string, string> = {
+            content: 'Content',
+            user: 'Profile',
+            note: 'Note',
+            playlist: 'Playlist',
+        };
 
-        if (kind && id) {
-            const typeMap: Record<string, string> = {
-                content: 'Content',
-                user: 'Profile',
-                note: 'Note',
-                playlist: 'Playlist',
-            };
-
-            tl = typeMap[kind] || kind.charAt(0).toUpperCase() + kind.slice(1);
-            dl = `studiva://${kind}/${id}`;
-        }
+        const tl = typeMap[kind] || kind.charAt(0).toUpperCase() + kind.slice(1);
+        const dl = kind && id ? `studiva://${kind}/${id}` : 'studiva://home';
 
         return { deepLink: dl, typeLabel: tl };
     }, [kind, id]);
 
-    const needsFetch = kind === 'content' || kind === 'user';
-    const [phase, setPhase] = useState(needsFetch ? 'loading' : 'redirecting');
-    const [meta, setMeta] = useState<any>(null);
+    // Start directly in 'preview' (or 'redirecting' for unknown types) — no loading state needed.
+    const [phase, setPhase] = useState<'preview' | 'redirecting' | 'fallback'>(
+        serverMeta ? 'preview' : 'redirecting'
+    );
     const [countdown, setCountdown] = useState(3);
 
-    const injectMeta = useCallback((name: string | null, property: string | null, content: string) => {
-        if (!content) return;
-        const selector = name
-            ? `meta[name="${name}"]`
-            : `meta[property="${property}"]`;
-        let el = document.querySelector(selector);
-        if (!el) {
-            el = document.createElement('meta');
-            if (name) el.setAttribute('name', name);
-            if (property) el.setAttribute('property', property);
-            document.head.appendChild(el);
-        }
-        el.setAttribute('content', content);
-    }, []);
-
+    // --- Redirect timer ---
     useEffect(() => {
-        if (!needsFetch) return;
-
-        let cancelled = false;
-        const fetchMeta = async () => {
-            try {
-                const res = await fetch(`https://api.studiva.co.in/public/${kind}/${id}`, {
-                    headers: {
-                        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_INTERNAL_API_SECRET || ''}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (!res.ok || cancelled) {
-                    setPhase('redirecting');
-                    return;
-                }
-                const json = await res.json();
-                const data = json?.data;
-                if (!data || cancelled) {
-                    setPhase('redirecting');
-                    return;
-                }
-
-                let title, description, image, subtitle;
-
-                if (kind === 'content') {
-                    title = data.title || 'Shared Content';
-                    description = data.description || `Study material by ${data.creator_name || data.creator_username || 'a creator'}`;
-                    image = data.preview_link || '';
-                    subtitle = `by ${data.creator_name || data.creator_username || 'Studiva Creator'}`;
-                } else {
-                    title = data.full_name || data.username || 'User';
-                    description = data.bio || `Check out ${title}'s profile and study materials on Studiva.`;
-                    image = data.avatar_url || '';
-                    subtitle = `@${data.username}`;
-                }
-
-                const pageTitle = kind === 'content'
-                    ? `${title} | Studiva`
-                    : `${title} (@${data.username}) · Studiva`;
-                document.title = pageTitle;
-                injectMeta('description', null, description);
-                injectMeta(null, 'og:title', pageTitle);
-                injectMeta(null, 'og:description', description);
-                injectMeta(null, 'og:type', kind === 'user' ? 'profile' : 'article');
-                injectMeta(null, 'og:url', window.location.href);
-                if (image) injectMeta(null, 'og:image', image);
-                injectMeta('twitter:card', null, image ? 'summary_large_image' : 'summary');
-                injectMeta(null, 'twitter:title', pageTitle);
-                injectMeta(null, 'twitter:description', description);
-                if (image) injectMeta(null, 'twitter:image', image);
-
-                if (!cancelled) {
-                    setMeta({
-                        title,
-                        subtitle,
-                        description,
-                        image,
-                        stats: kind === 'user'
-                            ? {
-                                followers: data.follower_count ?? 0,
-                                following: data.following_count ?? 0,
-                                content: data.content_count ?? 0,
-                            }
-                            : {
-                                views: data.views ?? 0,
-                                sparks: data.sparks_received ?? 0,
-                                saves: data.saves ?? 0,
-                            },
-                    });
-                    setPhase('preview');
-                }
-            } catch (err) {
-                console.error('SEO fetch failed:', err);
-                if (!cancelled) setPhase('redirecting');
-            }
-        };
-
-        fetchMeta();
-        return () => { cancelled = true; };
-    }, [kind, id, needsFetch, injectMeta]);
-
-    useEffect(() => {
-        if (phase === 'loading') return;
-
         const redirectTimer = setTimeout(() => {
             setPhase('redirecting');
             window.location.href = deepLink;
@@ -154,12 +72,13 @@ export function ShareRedirectClient() {
             clearTimeout(redirectTimer);
             clearTimeout(fallbackTimer);
         };
-    }, [phase, deepLink]);
+    }, [deepLink]);
 
+    // --- Countdown ---
     useEffect(() => {
-        if (phase !== 'preview' && phase !== 'redirecting') return;
+        if (phase === 'fallback') return;
         const interval = setInterval(() => {
-            setCountdown(c => {
+            setCountdown((c) => {
                 if (c <= 1) {
                     clearInterval(interval);
                     return 0;
@@ -170,18 +89,19 @@ export function ShareRedirectClient() {
         return () => clearInterval(interval);
     }, [phase]);
 
-    const handleOpenApp = () => {
+    const handleOpenApp = useCallback(() => {
         window.location.href = deepLink;
-    };
+    }, [deepLink]);
 
     const fmt = (n: number) => {
-        if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
-        if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+        if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
+        if (n >= 1_000) return (n / 1_000).toFixed(1) + 'K';
         return String(n);
     };
 
     const isUser = kind === 'user';
     const isContent = kind === 'content';
+    const meta = serverMeta;
 
     return (
         <div className="sr">
@@ -197,10 +117,17 @@ export function ShareRedirectClient() {
                 </div>
                 {meta?.image && (
                     <div className={`sr__media ${isUser ? 'sr__media--avatar' : 'sr__media--preview'}`}>
-                        <img src={meta.image} alt={meta.title} className="sr__media-img" onError={(e: any) => { e.target.style.display = 'none'; }} />
+                        <img
+                            src={meta.image}
+                            alt={meta.title}
+                            className="sr__media-img"
+                            onError={(e: any) => {
+                                e.target.style.display = 'none';
+                            }}
+                        />
                     </div>
                 )}
-                <h1 className="sr__title">{meta?.title || (kind ? `Shared ${typeLabel}` : 'Studiva')}</h1>
+                <h1 className="sr__title">{meta?.title || `Shared ${typeLabel}`}</h1>
                 {meta?.subtitle && <p className="sr__subtitle">{meta.subtitle}</p>}
                 {meta?.description && <p className="sr__desc">{meta.description}</p>}
                 {meta?.stats && (
@@ -244,12 +171,6 @@ export function ShareRedirectClient() {
                 )}
                 <div className="sr__divider" />
                 <div className="sr__redirect-status">
-                    {phase === 'loading' && (
-                        <div className="sr__status-row">
-                            <div className="sr__spinner" />
-                            <span className="sr__status-text">Loading content…</span>
-                        </div>
-                    )}
                     {(phase === 'preview' || phase === 'redirecting') && (
                         <div className="sr__status-row">
                             <div className="sr__spinner" />
