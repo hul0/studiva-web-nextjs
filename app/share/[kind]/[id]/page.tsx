@@ -1,36 +1,47 @@
 import { Metadata } from 'next';
 import { ShareRedirectClient } from './ShareRedirectClient';
 
+export const dynamic = 'force-dynamic';
+
 type Props = {
   params: Promise<{ kind: string; id: string }>;
 };
 
 async function fetchMetaData(kind: string, id: string) {
   const workerUrl = process.env.WORKER_URL || 'https://api.studiva.co.in';
-  const internalSecret = process.env.NEXT_PUBLIC_INTERNAL_API_SECRET || process.env.INTERNAL_API_SECRET;
+  const internalSecret = process.env.INTERNAL_API_SECRET || process.env.NEXT_PUBLIC_INTERNAL_API_SECRET;
 
-  if (!internalSecret) return null;
+  if (!internalSecret) {
+    console.error(`[ShareRedirect] Missing INTERNAL_API_SECRET for ${kind}/${id}`);
+    return null;
+  }
 
   try {
-    const res = await fetch(`${workerUrl}/public/${kind}/${id}`, {
+    const url = `${workerUrl.replace(/\/$/, '')}/public/${kind}/${id}`;
+    const res = await fetch(url, {
       headers: {
         'Authorization': `Bearer ${internalSecret}`,
         'Content-Type': 'application/json',
       },
-      next: { revalidate: 3600 } // Cache for 1 hour
+      next: { revalidate: 3600 }
     });
 
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.error(`[ShareRedirect] API error ${res.status} for ${url}`);
+      return null;
+    }
+
     const json = await res.json();
-    return json?.data;
+    return json?.data || null;
   } catch (err) {
+    console.error(`[ShareRedirect] Fetch exception for ${kind}/${id}:`, err);
     return null;
   }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { kind, id } = await params;
-  
+
   if (kind !== 'content' && kind !== 'user') {
     return { title: 'Shared Content | Studiva' };
   }
@@ -104,6 +115,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { kind, id } = await params;
   const data = await fetchMetaData(kind, id);
-  
+
   return <ShareRedirectClient kind={kind} id={id} initialData={data} />;
 }
