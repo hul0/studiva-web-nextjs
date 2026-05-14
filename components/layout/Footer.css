@@ -1,0 +1,261 @@
+/* ── BRUTALIST ORANGE FOOTER ─────────────────────────────────── */
+.footer-brutalist {
+    background: transparent;
+    color: var(--text-1);
+    margin: 0;
+    padding: 0;
+    font-family: "SF Mono", "Consolas", "Liberation Mono", Menlo, monospace;
+    text-transform: uppercase;
+}
+
+.footer-b__top-area {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid var(--text-1);
+}
+
+.footer-b__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+}
+
+.footer-b__text-block {
+    margin: 0 0 24px 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+
+/* Newsletter Column */
+.footer-b__newsletter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.footer-b__form {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--text-1);
+    padding-bottom: 8px;
+    max-width: 300px;
+    width: 100%;
+}
+
+.footer-b__input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-1);
+    font-family: inherit;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.footer-b__input::placeholder {
+    color: var(--text-2);
+}
+
+.footer-b__submit {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+}
+
+.footer-b__message {
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.footer-b__message.success {
+    color: #22c55e;
+}
+
+.footer-b__message.error {
+    color: #ef4444;
+}
+
+.footer-b__spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(23, 23, 23, 0.1);
+    border-top-color: #171717;
+    border-radius: 50%;
+    animation: footer-spin 0.6s linear infinite;
+}
+
+@keyframes footer-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Accordion Dropdowns */
+.footer-b__dropdown {
+    margin-bottom: 12px;
+}
+
+.footer-b__dropdown-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    color: var(--text-1);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    padding: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.footer-b__arrow {
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-b__arrow.open {
+    transform: rotate(90deg);
+}
+
+.footer-b__dropdown-content {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-5px);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 0;
+}
+
+.footer-b__dropdown-content.open {
+    max-height: 250px;
+    opacity: 1;
+    transform: translateY(0);
+    padding-top: 12px;
+}
+
+.footer-b__link {
+    color: var(--text-2);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+}
+
+.footer-b__link:hover {
+    color: var(--text-1);
+}
+
+/* Socials Column */
+.footer-b__socials {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.footer-b__social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    color: var(--text-1);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.footer-b__social-btn:hover {
+    text-decoration: underline;
+}
+
+/* Massive Bottom Text */
+.footer-b__bottom-area {
+    padding-top: 60px;
+    padding-bottom: 0px;
+    overflow: hidden;
+}
+
+.footer-b__massive-text {
+    font-family: 'Thesead', system-ui, -apple-system, sans-serif;
+    font-size: clamp(100px, 25vw, 420px);
+    font-weight: 950;
+    line-height: 0.8;
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+
+    /* Center letters */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0.04em;
+    /* Spacing between letters */
+}
+
+.footer-letter {
+    display: inline-block;
+    /* Fade gradient on each letter individually */
+    background: linear-gradient(to bottom, var(--footer-text-fade-start) 15%, var(--footer-text-fade-end) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    /* Initial state: hidden below, GSAP will animate to visible */
+    transform: translateY(240px) scale(0.5);
+    transform-origin: center bottom;
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+    .footer-b__grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .footer-b__newsletter {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .footer-b__socials {
+        align-items: flex-start;
+    }
+
+    .footer-b__social-btn {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-b__top-area {
+        padding-top: 40px;
+    }
+
+    .footer-b__bottom-area {
+        padding-bottom: 20px;
+    }
+
+    .footer-b__massive-text {
+        letter-spacing: -2px;
+        font-size: clamp(100px, 100vw, 100px);
+    }
+
+    .footer-letter {
+        transform: none;
+        /* Make letters visible immediately since bounce animation is disabled on mobile */
+    }
+}

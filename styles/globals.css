@@ -1,0 +1,425 @@
+@font-face {
+  font-family: 'Getaway';
+  src: url('/src/assets/fonts/getaway.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ID Grotesk';
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Thin-BF652cb1b461e9c.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ID Grotesk';
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Light-BF652cb1b459bdf.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ID Grotesk';
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Book-BF652cb1b45dae8.ttf') format('truetype');
+  font-weight: 350;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ID Grotesk';
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Regular-BF652cb1b4787d7.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ID Grotesk';
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Medium-BF652cb1b4765e1.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ID Grotesk';
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Semibold-BF652cb1b467d9d.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ID Grotesk';
+  src: url('/src/assets/fonts/ID Grotesk Font Family/IDGrotesk-Bold-BF652cb1b4740d2.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Super Kindly';
+  src: url('/src/assets/fonts/super-kindly-font/SuperKindly-drE8E.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thesead';
+  src: url('/src/assets/fonts/thesead/Thesead.otf') format('opentype'),
+       url('/src/assets/fonts/thesead/Thesead.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Background */
+  --bg: #DEDEDE;
+  --surface: #ffffff;
+  --surface-2: #f5f5f5;
+  --surface-3: #e8e8e8;
+
+  /* Borders */
+  --border: rgba(23, 23, 23, 0.08);
+  --border-strong: rgba(23, 23, 23, 0.16);
+
+  /* Text */
+  --text-1: #171717;
+  --text-2: #4D4D4D;
+  --text-3: #7D7D7D;
+
+  /* Accent — solid orange, used sparingly */
+  --accent: #F25623;
+  --accent-light: #FF7B4D;
+  --accent-dim: rgba(242, 86, 35, 0.15);
+
+  --nav-bg: rgba(255, 255, 255, 0.75);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.85);
+  --nav-mobile-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(23, 23, 23, 0.08);
+
+  --footer-text-fade-start: rgba(23, 23, 23, 1);
+  --footer-text-fade-end: rgba(23, 23, 23, 0);
+
+  --btn-bg: #000000;
+  --btn-fg: #ffffff;
+  --btn-shadow: #A890FE;
+  --btn-shadow-alt: #787777;
+
+  /* Typography */
+  --font: "Poppins", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing */
+  --container: 1200px;
+  --section-py: 80px;
+  --section-gap: 50px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:root[data-theme='dark'] {
+  /* Background */
+  --bg: #121212;
+  --surface: #1E1E1E;
+  --surface-2: #252525;
+  --surface-3: #2C2C2C;
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  /* Text */
+  --text-1: #E0E0E0;
+  --text-2: #A0A0A0;
+  --text-3: #757575;
+
+  /* Accent — solid orange, used sparingly */
+  --accent: #F25623;
+  --accent-light: #FF7B4D;
+  --accent-dim: rgba(242, 86, 35, 0.15);
+
+  --nav-bg: rgba(36, 36, 36, 0.75);
+  --nav-bg-scrolled: rgba(36, 36, 36, 0.85);
+  --nav-mobile-bg: rgba(36, 36, 36, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --footer-text-fade-start: rgba(255, 255, 255, 1);
+  --footer-text-fade-end: rgba(255, 255, 255, 0);
+
+  --btn-bg: #ffffff;
+  --btn-fg: #121212;
+  --btn-shadow: #A890FE;
+  --btn-shadow-alt: #A890FE;
+}
+
+html {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-1);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: 3px;
+}
+
+::selection {
+  background: rgba(242, 86, 35, 0.25);
+}
+
+/* ── CONTAINER ───────────────────────────────── */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ── TYPOGRAPHY HELPERS ──────────────────────── */
+.label {
+  display: inline-block;
+  padding: 5px 14px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(242, 86, 35, 0.25);
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent-light);
+}
+
+.section-title {
+  font-size: clamp(32px, 4.5vw, 54px);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--text-1);
+  letter-spacing: -1.5px;
+}
+
+.section-sub {
+  font-size: 17px;
+  color: var(--text-2);
+  line-height: 1.75;
+  max-width: 520px;
+}
+
+.accent-text {
+  color: var(--accent-light);
+}
+
+/* ── BUTTONS ─────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 0.2s var(--ease),
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: #171717;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(242, 86, 35, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  background: transparent;
+  color: var(--text-1);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    transform 0.2s var(--ease);
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background: rgba(23, 23, 23, 0.04);
+  border-color: rgba(23, 23, 23, 0.28);
+  transform: translateY(-1px);
+}
+
+/* ── CARDS ───────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition:
+    border-color 0.25s var(--ease),
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(23, 23, 23, 0.15);
+}
+
+/* ── SECTION BASE ────────────────────────────── */
+section {
+  position: relative;
+  contain: layout style;
+  /* NOTE: overflow: hidden removed — it creates stacking contexts that force
+     full-page repaint on scroll. Add overflow: hidden only where explicitly needed. */
+}
+
+/* ── NOISE OVERLAY ───────────────────────────── */
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.018;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMFBgcICQpJMBMzAAAASklEQVQ4y2MYJoAVSjMwQGkmKM3AAKVZ4DQLlGZhgNIsUJqFgQFKs0BpFigN0cUCpVkYGKA0C5RmgdIsDFCaBUqzMEBpZigNAAAMfAmtOlTVwAAAAABJRU5ErkJggg==");
+  background-size: 48px;
+  background-repeat: repeat;
+}
+
+/* ── PIXEL TRAIL COLOURS ────────────────────── */
+.pixel-white {
+  background-color: #ffffff;
+}
+
+.pixel-black {
+  background-color: #000000;
+}
+
+.gooey-svg-hidden {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ── GRID BACKGROUND ─────────────────────────── */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  
+    
+    
+  background-size: 72px 72px;
+  mask-image: radial-gradient(
+    ellipse 70% 70% at 50% 0%,
+    black 20%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ── GSAP INIT STATES ────────────────────────── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.fade-right {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+/* ── KEYFRAMES ───────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%       { transform: translate3d(0, -14px, 0); }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* ── RESPONSIVE ──────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --section-py: 80px;
+  }
+
+  .section-sub {
+    font-size: 15px;
+  }
+}

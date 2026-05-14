@@ -1,0 +1,163 @@
+.final-cta {
+    padding: 40px 0;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    color: var(--text-1);
+}
+
+.final-cta__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    position: relative;
+    z-index: 10;
+}
+
+.final-cta__content {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.final-cta__title {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin: 0;
+}
+
+.final-cta__sub {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.95;
+    max-width: 400px;
+}
+
+/* Uiverse Download Button Styles */
+.uiverse-download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 15px;
+  color: var(--btn-fg);
+  text-shadow: 1px 1px var(--text-3);
+  text-transform: uppercase;
+  cursor: pointer;
+  border: solid 3px var(--btn-bg);
+  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 16px;
+  background-color: var(--btn-bg);
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  text-decoration: none;
+  height: 56px;
+  min-width: 220px;
+  margin-top: 12px;
+  box-shadow: 0px 6px 0px var(--btn-shadow-alt);
+}
+
+.uiverse-download-btn:active {
+  transform: scale(0.95) translateY(4px);
+  box-shadow: 0px 2px 0px var(--btn-bg);
+  transition: all 100ms ease;
+}
+
+.uiverse-download-btn svg {
+  transition: all 0.5s ease;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.uiverse-download-btn .download {
+  transition: all 0.5s ease;
+  transition-delay: 300ms;
+}
+
+.uiverse-download-btn:hover svg {
+  transform: scale(3) translate(50%);
+}
+
+.uiverse-download-btn .now {
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
+  transition: all 0.5s ease;
+  z-index: 2;
+  color: var(--btn-fg);
+  text-shadow: none;
+}
+
+.uiverse-download-btn:hover .now {
+  transform: translateX(25px);
+  transition-delay: 300ms;
+}
+
+.uiverse-download-btn:hover .download {
+  transform: translateX(200%);
+  transition-delay: 300ms;
+}
+
+/* Graphic Side */
+.final-cta__graphic {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    max-width: 50vw;
+}
+
+.dino-image {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.dino-image--light {
+    display: block;
+}
+
+.dino-image--dark {
+    display: none;
+}
+
+:root[data-theme='dark'] .dino-image--light {
+    display: none;
+}
+
+:root[data-theme='dark'] .dino-image--dark {
+    display: block;
+}
+
+@media (max-width: 1024px) {
+    .final-cta {
+        padding: 80px 0;
+    }
+    .final-cta__inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 60px;
+    }
+    .final-cta__content {
+        align-items: center;
+    }
+    .dino-image {
+        max-width: 300px;
+    }
+}

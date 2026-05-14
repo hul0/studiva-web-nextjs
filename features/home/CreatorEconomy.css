@@ -1,0 +1,285 @@
+.creator-economy-squares {
+    padding: 0;
+    background-color: #2b2826; /* Dark brownish-grey from the reference */
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+    height: 100vh;
+    min-height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ce-bg-graphic {
+    position: absolute;
+    top: 50%;
+    right: -100px;
+    transform: translateY(-50%);
+    width: 800px;
+    height: 800px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.ce-squares-container {
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
+    height: 600px;
+}
+
+.ce-top-row {
+    position: absolute;
+    top: 0;
+    left: 40px;
+    z-index: 10;
+}
+
+.ce-big-text {
+    font-size: clamp(48px, 6vw, 84px);
+    font-weight: 900;
+    line-height: 1;
+    color: #f25b38; /* Bright orange from the reference */
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin: 0;
+}
+
+.ce-top-right-text {
+    position: absolute;
+    top: 0;
+    right: 40px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #f25b38;
+    text-align: right;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    max-width: 200px;
+}
+
+/* We will use a relative layout grid for scattered absolute cards */
+.ce-squares-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.ce-mid-text {
+    position: absolute;
+    top: 450px;
+    left: 550px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #f25b38;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    max-width: 200px;
+}
+
+/* Absolute card positioning */
+.ce-square-card {
+    background-color: #d1cbb8; /* Beige from reference */
+    color: #1a1a1a;
+    width: 220px;
+    height: 220px;
+    padding: 20px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.ce-square-card:hover {
+    transform: scale(1.05) translateY(-5px) !important;
+    z-index: 20;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+}
+
+/* Stagger positions "up down left right" */
+.ce-col-1 .ce-square-card:nth-child(1) {
+    top: 250px;
+    left: 40px;
+}
+
+.ce-col-1 .ce-square-card:nth-child(2) {
+    top: 420px;
+    left: 280px;
+}
+
+.ce-col-2 .ce-square-card:nth-child(1) {
+    top: 200px;
+    left: 500px;
+}
+
+/* Remove text from col-2 layout calculation since it's absolutely positioned too */
+
+.ce-col-3 .ce-square-card:nth-child(1) {
+    top: 380px;
+    right: 40px;
+}
+
+.ce-col-3 .ce-square-card:nth-child(2) {
+    top: 100px;
+    right: 150px;
+}
+
+.ce-square-desc {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    max-width: 90%;
+}
+
+.ce-square-val {
+    font-size: 48px;
+    font-weight: 900;
+    align-self: flex-end;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+/* Corner Brackets */
+.ce-bracket {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #1a1a1a;
+}
+
+.ce-tl {
+    top: 10px; left: 10px;
+    border-right: none; border-bottom: none;
+}
+
+.ce-tr {
+    top: 10px; right: 10px;
+    border-left: none; border-bottom: none;
+}
+
+.ce-bl {
+    bottom: 10px; left: 10px;
+    border-right: none; border-top: none;
+}
+
+.ce-br {
+    bottom: 10px; right: 10px;
+    border-left: none; border-top: none;
+}
+
+@media (max-width: 1024px) {
+    .creator-economy-squares {
+        height: auto;
+        min-height: auto;
+        padding: 80px 0;
+    }
+    
+    .ce-squares-container {
+        height: auto;
+        padding: 0 24px;
+    }
+    
+    .ce-top-row, .ce-squares-grid, .ce-square-card, .ce-mid-text {
+        position: relative;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+    }
+
+    .ce-big-text {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    
+    .ce-squares-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+        margin-top: 40px;
+    }
+    
+    .ce-grid-col {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .ce-mid-text {
+        text-align: center;
+        margin: 20px auto;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .ce-square-card {
+        width: 160px;
+        height: 160px;
+        padding: 16px;
+    }
+
+    .ce-square-val {
+        font-size: 32px;
+    }
+
+    .ce-square-desc {
+        font-size: 10px;
+    }
+
+    .ce-bracket {
+        width: 12px;
+        height: 12px;
+    }
+
+    .ce-grid-col {
+        gap: 12px;
+    }
+
+    .ce-mid-text {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ce-big-text {
+        font-size: 36px;
+    }
+    
+    .ce-grid-col {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ce-square-card {
+        width: 100%;
+        max-width: 280px;
+        height: 140px;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+    }
+
+    .ce-square-val {
+        align-self: center;
+        margin-left: auto;
+    }
+
+    .ce-square-desc {
+        max-width: 60%;
+    }
+}
+

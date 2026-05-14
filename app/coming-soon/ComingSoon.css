@@ -1,0 +1,128 @@
+.coming-soon-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg); 
+    overflow: hidden;
+}
+
+
+.cs-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 100px 20px;
+    z-index: 10;
+}
+
+.cs-content {
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.cs-subtitle {
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    color: var(--text-2);
+}
+
+.cs-title {
+    font-size: clamp(6rem, 15vw, 15rem);
+    font-weight: 500;
+    line-height: 0.85;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text-1);
+    letter-spacing: -3px;
+    text-transform: uppercase;
+}
+
+.cs-title span:first-child {
+    transform: translateY(10px);
+    z-index: 2;
+}
+
+/* The Caution Tape */
+.cs-tape {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150vw; /* Massive to ensure it clears screen when rotated */
+    height: 48px;
+    background-color: #f1ef78; /* Muted pastel yellow */
+    transform: translate(-50%, -50%) rotate(-15deg);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 5;
+    white-space: nowrap;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.cs-tape-text {
+    display: flex;
+    gap: 3rem;
+    animation: tape-scroll 25s linear infinite;
+}
+
+.cs-tape-text span {
+    color: #1a1a1a;
+    font-weight: 500;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+@keyframes tape-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } 
+    /* The div is 2x long so translating -50% loops perfectly */
+}
+
+.cs-date {
+    margin-top: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cs-date p {
+    margin: 0.2rem 0;
+    color: var(--text-2);
+}
+
+.cs-date p:first-child {
+    font-size: 1.2rem;
+}
+
+.cs-date p:last-child {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .cs-tape {
+        height: 36px;
+        transform: translate(-50%, -50%) rotate(-25deg);
+    }
+    .cs-tape-text span {
+        font-size: 1rem;
+    }
+    .cs-title {
+        line-height: 0.9;
+    }
+}
+

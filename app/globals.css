@@ -1,0 +1,838 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App-level overrides */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Color Palette */
+:root {
+  --lime-green: #B0E454;
+  --forest-green: #224F10;
+  --soft-ivory: #EAFFD0;
+  --jet-black: #0D0D0D;
+
+  /* Background */
+  --bg: #DEDEDE;
+  --surface: #ffffff;
+  --surface-2: #f5f5f5;
+  --surface-3: #e8e8e8;
+
+  /* Borders */
+  --border: rgba(23, 23, 23, 0.08);
+  --border-strong: rgba(23, 23, 23, 0.16);
+
+  /* Text */
+  --text-1: #171717;
+  --text-2: #4D4D4D;
+  --text-3: #7D7D7D;
+
+  /* Accent */
+  --accent: #F25623;
+  --accent-light: #FF7B4D;
+  --accent-dim: rgba(242, 86, 35, 0.15);
+
+  --nav-bg: rgba(255, 255, 255, 0.75);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.85);
+  --nav-mobile-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(23, 23, 23, 0.08);
+
+  --footer-text-fade-start: rgba(23, 23, 23, 1);
+  --footer-text-fade-end: rgba(23, 23, 23, 0);
+
+  --btn-bg: #000000;
+  --btn-fg: #ffffff;
+  --btn-shadow: #A890FE;
+  --btn-shadow-alt: #787777;
+
+  /* Typography */
+  --font: "Poppins", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing */
+  --container: 1200px;
+  --section-py: 80px;
+  --section-gap: 50px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:root[data-theme='dark'] {
+  --bg: #121212;
+  --surface: #1E1E1E;
+  --surface-2: #252525;
+  --surface-3: #2C2C2C;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --text-1: #E0E0E0;
+  --text-2: #A0A0A0;
+  --text-3: #757575;
+  --nav-bg: rgba(36, 36, 36, 0.75);
+  --nav-bg-scrolled: rgba(36, 36, 36, 0.85);
+  --nav-mobile-bg: rgba(36, 36, 36, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --footer-text-fade-start: rgba(255, 255, 255, 1);
+  --footer-text-fade-end: rgba(255, 255, 255, 0);
+  --btn-bg: #ffffff;
+  --btn-fg: #121212;
+}
+
+/* Enforce hardware acceleration for GSAP stagger animations globally */
+[data-anim] {
+  will-change: transform, opacity;
+}
+
+@font-face {
+  font-family: 'Getaway';
+  src: url('/fonts/getaway.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ID Grotesk';
+  src: url('/fonts/ID Grotesk Font Family/IDGrotesk-Thin-BF652cb1b461e9c.ttf') format('truetype');
+  font-weight: 100;
+}
+/* ... other fonts simplified for now, should be added back ... */
+
+html {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-1);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.018;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMFBgcICQpJMBMzAAAASklEQVQ4y2MYJoAVSjMwQGkmKM3AAKVZ4DQLlGZhgNIsUJqFgQFKs0BpFigN0cUCpVkYGKA0C5RmgdIsDFCaBUqzMEBpZigNAAAMfAmtOlTVwAAAAABJRU5ErkJggg==");
+  background-size: 48px;
+  background-repeat: repeat;
+}
+
+/* Original helpers */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.section-title {
+  font-size: clamp(32px, 4.5vw, 54px);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--text-1);
+  letter-spacing: -1.5px;
+}
+.book-loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.book-loader-wrapper.small {
+  font-size: 0.5em;
+  padding: 0;
+}
+
+.book-loader-wrapper.medium {
+  font-size: 1em;
+}
+
+.book-loader-wrapper.large {
+  font-size: 1.5em;
+}
+
+.book {
+  background-color: var(--accent);
+  border-radius: 0.25em;
+  box-shadow:
+    0 0.25em 0.5em rgba(0, 0, 0, 0.3),
+    0 0 0 0.25em var(--accent-light) inset;
+  padding: 0.25em;
+  perspective: 37.5em;
+  position: relative;
+  width: 8em;
+  height: 6em;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+}
+
+.book,
+.book__pg-shadow,
+.book__pg {
+  animation: cover 5s ease-in-out infinite;
+}
+
+.book__pg-shadow,
+.book__pg {
+  position: absolute;
+  left: 0.25em;
+  width: calc(50% - 0.25em);
+}
+
+.book__pg-shadow {
+  animation-name: shadow;
+  background-image: linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.3) 50%
+  );
+  filter: blur(0.25em);
+  top: calc(100% - 0.25em);
+  height: 3.75em;
+  transform: scaleY(0);
+  transform-origin: 100% 0%;
+}
+
+.book__pg {
+  animation-name: pg1;
+  background-color: var(--surface);
+  background-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 87.5%,
+    rgba(0, 0, 0, 0.1)
+  );
+  height: calc(100% - 0.5em);
+  transform-origin: 100% 50%;
+}
+
+.book__pg--2,
+.book__pg--3,
+.book__pg--4 {
+  background-image: repeating-linear-gradient(
+      var(--text-3) 0 0.125em,
+      rgba(0, 0, 0, 0) 0.125em 0.5em
+    ),
+    linear-gradient(90deg, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 0.1));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:
+    2.5em 4.125em,
+    100% 100%;
+}
+
+.book__pg--2 {
+  animation-name: pg2;
+}
+
+.book__pg--3 {
+  animation-name: pg3;
+}
+
+.book__pg--4 {
+  animation-name: pg4;
+}
+
+.book__pg--5 {
+  animation-name: pg5;
+}
+
+/* Animations */
+@keyframes cover {
+  from,
+  5%,
+  45%,
+  55%,
+  95%,
+  to {
+    animation-timing-function: ease-out;
+    background-color: var(--accent-light);
+  }
+  10%,
+  40%,
+  60%,
+  90% {
+    animation-timing-function: ease-in;
+    background-color: var(--accent);
+  }
+}
+
+@keyframes shadow {
+  from,
+  10.01%,
+  20.01%,
+  30.01%,
+  40.01% {
+    animation-timing-function: ease-in;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(0);
+  }
+  5%,
+  15%,
+  25%,
+  35%,
+  45%,
+  55%,
+  65%,
+  75%,
+  85%,
+  95% {
+    animation-timing-function: ease-out;
+    transform: translate3d(0, 0, 1px) scaleY(0.2) rotateY(90deg);
+  }
+  10%,
+  20%,
+  30%,
+  40%,
+  50%,
+  to {
+    animation-timing-function: ease-out;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(180deg);
+  }
+  50.01%,
+  60.01%,
+  70.01%,
+  80.01%,
+  90.01% {
+    animation-timing-function: ease-in;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(180deg);
+  }
+  60%,
+  70%,
+  80%,
+  90%,
+  to {
+    animation-timing-function: ease-out;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(0);
+  }
+}
+
+@keyframes pg1 {
+  from,
+  to {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.4deg);
+  }
+  10%,
+  15% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(180deg);
+  }
+  20%,
+  80% {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(180deg);
+  }
+  85%,
+  90% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(180deg);
+  }
+}
+
+@keyframes pg2 {
+  from,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+  }
+  5%,
+  10% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+  }
+  20%,
+  25% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.9deg);
+  }
+  30%,
+  70% {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(179.9deg);
+  }
+  75%,
+  80% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.9deg);
+  }
+  90%,
+  95% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+  }
+}
+
+@keyframes pg3 {
+  from,
+  10%,
+  90%,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+  }
+  15%,
+  20% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+  }
+  30%,
+  35% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.8deg);
+  }
+  40%,
+  60% {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(179.8deg);
+  }
+  65%,
+  70% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.8deg);
+  }
+  80%,
+  85% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+  }
+}
+
+@keyframes pg4 {
+  from,
+  20%,
+  80%,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+  }
+  25%,
+  30% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+  }
+  40%,
+  45% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.7deg);
+  }
+  50% {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(179.7deg);
+  }
+  55%,
+  60% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.7deg);
+  }
+  70%,
+  75% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+  }
+}
+
+@keyframes pg5 {
+  from,
+  30%,
+  70%,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(0);
+  }
+  35%,
+  40% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0deg);
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.6deg);
+  }
+  60%,
+  65% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0);
+  }
+}
+.book-loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.book-loader-wrapper.small {
+  font-size: 0.5em;
+  padding: 0;
+}
+
+.book-loader-wrapper.medium {
+  font-size: 1em;
+}
+
+.book-loader-wrapper.large {
+  font-size: 1.5em;
+}
+
+.book {
+  background-color: var(--accent);
+  border-radius: 0.25em;
+  box-shadow:
+    0 0.25em 0.5em rgba(0, 0, 0, 0.3),
+    0 0 0 0.25em var(--accent-light) inset;
+  padding: 0.25em;
+  perspective: 37.5em;
+  position: relative;
+  width: 8em;
+  height: 6em;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+}
+
+.book,
+.book__pg-shadow,
+.book__pg {
+  animation: cover 5s ease-in-out infinite;
+}
+
+.book__pg-shadow,
+.book__pg {
+  position: absolute;
+  left: 0.25em;
+  width: calc(50% - 0.25em);
+}
+
+.book__pg-shadow {
+  animation-name: shadow;
+  background-image: linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.3) 50%
+  );
+  filter: blur(0.25em);
+  top: calc(100% - 0.25em);
+  height: 3.75em;
+  transform: scaleY(0);
+  transform-origin: 100% 0%;
+}
+
+.book__pg {
+  animation-name: pg1;
+  background-color: var(--surface);
+  background-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 87.5%,
+    rgba(0, 0, 0, 0.1)
+  );
+  height: calc(100% - 0.5em);
+  transform-origin: 100% 50%;
+}
+
+.book__pg--2,
+.book__pg--3,
+.book__pg--4 {
+  background-image: repeating-linear-gradient(
+      var(--text-3) 0 0.125em,
+      rgba(0, 0, 0, 0) 0.125em 0.5em
+    ),
+    linear-gradient(90deg, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 0.1));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:
+    2.5em 4.125em,
+    100% 100%;
+}
+
+.book__pg--2 {
+  animation-name: pg2;
+}
+
+.book__pg--3 {
+  animation-name: pg3;
+}
+
+.book__pg--4 {
+  animation-name: pg4;
+}
+
+.book__pg--5 {
+  animation-name: pg5;
+}
+
+/* Animations */
+@keyframes cover {
+  from,
+  5%,
+  45%,
+  55%,
+  95%,
+  to {
+    animation-timing-function: ease-out;
+    background-color: var(--accent-light);
+  }
+  10%,
+  40%,
+  60%,
+  90% {
+    animation-timing-function: ease-in;
+    background-color: var(--accent);
+  }
+}
+
+@keyframes shadow {
+  from,
+  10.01%,
+  20.01%,
+  30.01%,
+  40.01% {
+    animation-timing-function: ease-in;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(0);
+  }
+  5%,
+  15%,
+  25%,
+  35%,
+  45%,
+  55%,
+  65%,
+  75%,
+  85%,
+  95% {
+    animation-timing-function: ease-out;
+    transform: translate3d(0, 0, 1px) scaleY(0.2) rotateY(90deg);
+  }
+  10%,
+  20%,
+  30%,
+  40%,
+  50%,
+  to {
+    animation-timing-function: ease-out;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(180deg);
+  }
+  50.01%,
+  60.01%,
+  70.01%,
+  80.01%,
+  90.01% {
+    animation-timing-function: ease-in;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(180deg);
+  }
+  60%,
+  70%,
+  80%,
+  90%,
+  to {
+    animation-timing-function: ease-out;
+    transform: translate3d(0, 0, 1px) scaleY(0) rotateY(0);
+  }
+}
+
+@keyframes pg1 {
+  from,
+  to {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.4deg);
+  }
+  10%,
+  15% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(180deg);
+  }
+  20%,
+  80% {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(180deg);
+  }
+  85%,
+  90% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(180deg);
+  }
+}
+
+@keyframes pg2 {
+  from,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+  }
+  5%,
+  10% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+  }
+  20%,
+  25% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.9deg);
+  }
+  30%,
+  70% {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(179.9deg);
+  }
+  75%,
+  80% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.9deg);
+  }
+  90%,
+  95% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+  }
+}
+
+@keyframes pg3 {
+  from,
+  10%,
+  90%,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+  }
+  15%,
+  20% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+  }
+  30%,
+  35% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.8deg);
+  }
+  40%,
+  60% {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(179.8deg);
+  }
+  65%,
+  70% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.8deg);
+  }
+  80%,
+  85% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+  }
+}
+
+@keyframes pg4 {
+  from,
+  20%,
+  80%,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+  }
+  25%,
+  30% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+  }
+  40%,
+  45% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.7deg);
+  }
+  50% {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(179.7deg);
+  }
+  55%,
+  60% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.7deg);
+  }
+  70%,
+  75% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+  }
+}
+
+@keyframes pg5 {
+  from,
+  30%,
+  70%,
+  to {
+    animation-timing-function: ease-in;
+    background-color: var(--surface-3);
+    transform: translate3d(0, 0, 1px) rotateY(0);
+  }
+  35%,
+  40% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0deg);
+  }
+  50% {
+    animation-timing-function: ease-in-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(179.6deg);
+  }
+  60%,
+  65% {
+    animation-timing-function: ease-out;
+    background-color: var(--surface);
+    transform: translate3d(0, 0, 1px) rotateY(0);
+  }
+}

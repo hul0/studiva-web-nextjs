@@ -1,0 +1,19 @@
+/* App-level overrides only */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Color Palette (Redesign) */
+:root {
+  --lime-green: #B0E454;
+  --forest-green: #224F10;
+  --soft-ivory: #EAFFD0;
+  --jet-black: #0D0D0D;
+}
+
+/* Enforce hardware acceleration for GSAP stagger animations globally */
+[data-anim] {
+  will-change: transform, opacity;
+}

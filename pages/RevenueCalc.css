@@ -1,0 +1,274 @@
+.revenue-calc-page {
+    background-color: var(--jet-black);
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.rev-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 120px 24px 80px;
+}
+
+.rev-back-btn {
+    background: none;
+    border: none;
+    color: var(--text-3);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.rev-back-btn:hover {
+    color: #f25b38;
+}
+
+.rev-header {
+    margin-bottom: 60px;
+}
+
+.rev-title {
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.rev-title .highlight {
+    color: #f25b38;
+    text-shadow: 0 0 20px rgba(242, 91, 56, 0.3);
+}
+
+.rev-subtitle {
+    font-size: 18px;
+    color: var(--text-2);
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.rev-grid {
+    display: grid;
+    grid-template-columns: 1fr 450px;
+    gap: 40px;
+    align-items: start;
+}
+
+.rev-card {
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 32px;
+    padding: 48px;
+}
+
+.rev-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-header .icon {
+    color: #f25b38;
+}
+
+.val-badge {
+    margin-left: auto;
+    background: rgba(242, 91, 56, 0.1);
+    color: #f25b38;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-family: var(--font-mono);
+    font-size: 18px;
+}
+
+/* Slider Styling */
+.rev-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    outline: none;
+}
+
+.rev-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #f25b38;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(242, 91, 56, 0.5);
+    transition: transform 0.2s;
+}
+
+.rev-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-3);
+    font-weight: 600;
+}
+
+.rev-info-box {
+    display: flex;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 16px;
+    align-items: center;
+}
+
+.rev-info-box p {
+    font-size: 13px;
+    color: var(--text-3);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Results Card */
+.rev-results {
+    background: #f25b38;
+    color: #1a1a1a;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(242, 91, 56, 0.2);
+    position: sticky;
+    top: 100px;
+}
+
+.results-label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    opacity: 0.7;
+}
+
+.revenue-display {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.revenue-display .currency {
+    font-size: 32px;
+    font-weight: 800;
+    margin-top: 12px;
+}
+
+.revenue-display .amount {
+    font-size: 84px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -4px;
+}
+
+.payout-note {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    opacity: 0.8;
+}
+
+.perks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 48px;
+    align-items: center;
+}
+
+.perk-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.perk-dot {
+    width: 6px;
+    height: 6px;
+    background: #1a1a1a;
+    border-radius: 50%;
+}
+
+.rev-cta-btn {
+    width: 100%;
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    padding: 20px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.rev-cta-btn:hover {
+    transform: translateY(-4px);
+    background: #000000;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .rev-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rev-results {
+        position: static;
+        order: -1; /* Show results first on mobile? Or keep inputs first. Let's keep inputs first. */
+    }
+    
+    .rev-grid {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .rev-results {
+        order: 2;
+    }
+}
+
+@media (max-width: 640px) {
+    .rev-container {
+        padding-top: 100px;
+    }
+
+    .rev-card {
+        padding: 32px 24px;
+    }
+
+    .revenue-display .amount {
+        font-size: 60px;
+    }
+}

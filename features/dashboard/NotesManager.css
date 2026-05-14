@@ -1,0 +1,179 @@
+.notes-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.manager-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 8px 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-box input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  width: 100%;
+  outline: none;
+  font-size: 14px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.category-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ─── Table ──────────────────────────────────────────────── */
+.table-wrapper {
+  padding: 0;
+  overflow: hidden;
+}
+
+.notes-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.notes-table th {
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  color: #666;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.notes-table td {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 14px;
+}
+
+.notes-table tr:last-child td {
+  border-bottom: none;
+}
+
+.notes-table tr:hover td {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.note-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.note-icon {
+  width: 32px;
+  height: 32px;
+  background: rgba(168, 144, 254, 0.1);
+  color: var(--accent-light);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.category-badge {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pill.live {
+  background: rgba(52, 211, 153, 0.1);
+  color: #34d399;
+}
+
+.status-pill.pending {
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+}
+
+.status-pill.rejected {
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+}
+
+.stat-cell {
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.price-tag {
+  font-weight: 700;
+  color: #fff;
+}
+
+.action-btn {
+  background: transparent;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.icon-btn-small {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
