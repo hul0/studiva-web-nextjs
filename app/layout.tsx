@@ -5,7 +5,7 @@ import Loader from "@/components/common/Loader";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://studiva.co.in"),
+  metadataBase: new URL("https://www.studiva.co.in"),
   title: {
     default: "Studiva | Your Academic Companion",
     template: "%s | Studiva",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Studiva | Your Academic Companion",
     description: "Your academic companion. Buy and sell notes, earn through rewarded ads, and join the future of student-led economy.",
-    url: "https://studiva.co.in",
+    url: "https://www.studiva.co.in",
     siteName: "Studiva",
     images: [
       {
@@ -66,11 +66,11 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Studiva",
-  "url": "https://studiva.co.in",
-  "logo": "https://studiva.co.in/images/studiva-app-logo-black-white.svg",
-  "description": "A marketplace for students to buy and sell notes and earn through rewarded ads.",
+  "url": "https://www.studiva.co.in",
+  "logo": "https://www.studiva.co.in/images/studiva-logo.svg",
+  "description": "A marketplace for students to share and earn from study materials",
   "sameAs": [
-    "https://instagram.com/studiva.hq"
+    "https://www.instagram.com/studiva.co.in"
   ]
 };
 

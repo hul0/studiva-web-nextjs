@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://studiva.co.in/sitemap.xml
+Sitemap: https://www.studiva.co.in/sitemap.xml

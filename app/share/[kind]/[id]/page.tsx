@@ -33,7 +33,7 @@ async function fetchMetaData(kind: string, id: string) {
       console.error(`[ShareRedirect] ERROR: API returned non-OK status ${res.status} for ${url}`);
       return null;
     }
-    
+
     const json = await res.json();
     return json?.data || null;
   } catch (err: any) {
@@ -68,13 +68,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? `${title} | Studiva`
     : `${title} (@${data.username}) · Studiva`;
 
-  const url = `https://studiva.co.in/share/${kind}/${id}`;
+  const url = `https://www.studiva.co.in/share/${kind}/${id}`;
   const appDeepLink = `studiva://${kind}/${id}`;
 
   return {
     title: pageTitle,
     description,
-    metadataBase: new URL('https://studiva.co.in'),
+    metadataBase: new URL('https://www.studiva.co.in'),
     alternates: {
       canonical: url,
     },

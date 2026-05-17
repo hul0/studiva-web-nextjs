@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/api/'],
     },
-    sitemap: 'https://studiva.co.in/sitemap.xml',
+    sitemap: 'https://www.studiva.co.in/sitemap.xml',
   };
 }
