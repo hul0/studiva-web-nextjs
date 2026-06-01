@@ -10,7 +10,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Missing type or id' }, { status: 400 });
     }
 
-    if (type !== 'content' && type !== 'user') {
+    const validTypes = ['content', 'user', 'quizzes', 'flashcards', 'lessons', 'courses', 'playlists'];
+    if (!validTypes.includes(type)) {
       return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
     }
 
@@ -22,7 +23,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
     }
 
-    const endpoint = `${workerUrl}/public/${type}/${id}`;
+    const endpointType = type === 'user' ? 'user' : 'content';
+    const endpoint = `${workerUrl.replace(/\/$/, '')}/public/${endpointType}/${id}`;
 
     const response = await fetch(endpoint, {
       method: 'GET',
