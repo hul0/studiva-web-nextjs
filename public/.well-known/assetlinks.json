@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.studiva.app",
+      "sha256_cert_fingerprints": [
+        "3A:9A:D7:4D:F4:24:1D:72:88:85:1F:BB:4A:D8:B4:26:24:53:8F:1F:8A:17:29:93:A5:AC:A6:C8:DD:BA:1C:86"
+      ]
+    }
+  }
+]
