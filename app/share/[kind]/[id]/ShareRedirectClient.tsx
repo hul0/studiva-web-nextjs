@@ -1,7 +1,17 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
-import { FaGooglePlay, FaInstagram, FaExternalLinkAlt } from 'react-icons/fa';
+import {
+    FaGooglePlay,
+    FaInstagram,
+    FaExternalLinkAlt,
+    FaUserCircle,
+    FaRegQuestionCircle,
+    FaClone,
+    FaBookOpen,
+    FaListUl,
+    FaRegFileAlt
+} from 'react-icons/fa';
 import './ShareRedirect.css';
 
 type ShareRedirectClientProps = {
@@ -15,6 +25,17 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
     const [countdown, setCountdown] = useState(3);
     const [isPaused, setIsPaused] = useState(false);
     const [hasRedirected, setHasRedirected] = useState(false);
+    const [avatarError, setAvatarError] = useState(false);
+    const [creatorAvatarError, setCreatorAvatarError] = useState(false);
+
+    const getContentFallbackIcon = (type: string) => {
+        const t = type?.toLowerCase() || '';
+        if (t.includes('quiz')) return <FaRegQuestionCircle />;
+        if (t.includes('flashcard')) return <FaClone />;
+        if (t.includes('lesson') || t.includes('course')) return <FaBookOpen />;
+        if (t.includes('playlist')) return <FaListUl />;
+        return <FaRegFileAlt />;
+    };
 
     const { deepLink, typeLabel } = useMemo(() => {
         let dl = 'studiva://home';
@@ -38,11 +59,45 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
                 courses: 'Course',
             };
 
+            const contentTypeToPlural: Record<string, string> = {
+                quiz: 'quizzes',
+                quizzes: 'quizzes',
+                flashcard: 'flashcards',
+                flashcards: 'flashcards',
+                lesson: 'lessons',
+                lessons: 'lessons',
+                course: 'courses',
+                courses: 'courses',
+                playlist: 'playlists',
+                playlists: 'playlists',
+                note: 'content',
+                content: 'content',
+            };
+
             tl = typeMap[contentTypeName] || contentTypeName.charAt(0).toUpperCase() + contentTypeName.slice(1);
-            dl = `studiva://${kind}/${id}`;
+
+            if (kind === 'user') {
+                dl = `studiva://user/${id}`;
+            } else {
+                const pluralKind = contentTypeToPlural[contentTypeName] || kind;
+                dl = `studiva://${pluralKind}/${id}`;
+            }
+
+            console.log('[ShareRedirectClient] Resolving deepLink/typeLabel:', {
+                kind,
+                id,
+                contentTypeName,
+                resolvedTypeLabel: tl,
+                resolvedDeepLink: dl
+            });
         }
 
         return { deepLink: dl, typeLabel: tl };
+    }, [kind, id, initialData]);
+
+    useEffect(() => {
+        console.log('[ShareRedirectClient] Mounted with parameters:', { kind, id });
+        console.log('[ShareRedirectClient] Initial API Data received:', initialData);
     }, [kind, id, initialData]);
 
     useEffect(() => {
@@ -53,16 +108,35 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
         } else if (/android/.test(ua)) {
             detected = 'android';
         }
+        console.log('[ShareRedirectClient] User Agent / Device detection result:', {
+            userAgent: navigator.userAgent,
+            detectedDevice: detected
+        });
         setDevice(detected);
     }, []);
 
     useEffect(() => {
-        if (device === 'desktop' || isPaused || hasRedirected) return;
+        if (device === 'desktop') {
+            console.log('[ShareRedirectClient] Redirection skipped: Desktop client.');
+            return;
+        }
+        if (isPaused) {
+            console.log('[ShareRedirectClient] Redirection paused.');
+            return;
+        }
+        if (hasRedirected) {
+            console.log('[ShareRedirectClient] Already attempted redirect to:', deepLink);
+            return;
+        }
+
+        console.log('[ShareRedirectClient] Starting auto-redirection countdown. Target Deep Link:', deepLink);
 
         const interval = setInterval(() => {
             setCountdown((prev) => {
+                console.log(`[ShareRedirectClient] Countdown tick: ${prev - 1}s remaining`);
                 if (prev <= 1) {
                     clearInterval(interval);
+                    console.log('[ShareRedirectClient] Countdown finished! Triggering window.location.href to:', deepLink);
                     window.location.href = deepLink;
                     setHasRedirected(true);
                     return 0;
@@ -71,7 +145,10 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
             });
         }, 1000);
 
-        return () => clearInterval(interval);
+        return () => {
+            console.log('[ShareRedirectClient] Clearing countdown interval.');
+            clearInterval(interval);
+        };
     }, [device, deepLink, isPaused, hasRedirected]);
 
     const meta = useMemo(() => {
@@ -87,7 +164,7 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
             dateText = initialData.created_at ? `Joined Studiva on ${new Date(initialData.created_at * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}` : '';
         } else {
             title = initialData.title || `Shared ${typeLabel}`;
-            description = initialData.description || `Study material by ${initialData.creator_name || initialData.creator_username || 'a creator'}`;
+            description = initialData.description || `Learn Interactively with Studiva`;
             image = initialData.preview_link || '';
             subtitle = `by ${initialData.creator_name || initialData.creator_username || 'Studiva Creator'}`;
             dateText = initialData.created_at ? `Created on ${new Date(initialData.created_at * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}` : '';
@@ -136,7 +213,7 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
         <div className="sr">
             <div className="sr__ambient" aria-hidden="true" />
             <div className="sr__card">
-                
+
                 <div className="sr__header-row">
                     <div className="sr__header">
                         <img src="/images/studiva-quill-icon.svg" alt="Studiva" className="sr__logo" />
@@ -148,24 +225,56 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
                     </div>
                 </div>
 
-                {meta?.image && (
-                    <div className={`sr__media ${isUser ? 'sr__media--avatar' : 'sr__media--preview'}`}>
-                        <img src={meta.image} alt={meta.title} className="sr__media-img" onError={(e: any) => { e.target.style.display = 'none'; }} />
+                {isUser ? (
+                    <div className="sr__media sr__media--avatar">
+                        {meta?.image && !avatarError ? (
+                            <img
+                                src={meta.image}
+                                alt={meta.title}
+                                className="sr__media-img"
+                                onError={() => setAvatarError(true)}
+                            />
+                        ) : (
+                            <div className="sr__avatar-fallback">
+                                <FaUserCircle />
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div className="sr__media sr__media--preview">
+                        {meta?.image ? (
+                            <img
+                                src={meta.image}
+                                alt={meta.title}
+                                className="sr__media-img"
+                                onError={(e: any) => { e.target.style.display = 'none'; }}
+                            />
+                        ) : (
+                            <div className="sr__content-fallback">
+                                {getContentFallbackIcon(initialData?.content_type || kind)}
+                            </div>
+                        )}
                     </div>
                 )}
-                
+
                 <h1 className="sr__title">{meta?.title || (kind ? `Shared ${typeLabel}` : 'Studiva')}</h1>
                 {meta?.subtitle && <p className="sr__subtitle">{meta.subtitle}</p>}
                 {meta?.description && <p className="sr__desc">{meta.description}</p>}
 
                 {meta?.creator && (
                     <div className="sr__creator-card">
-                        <img 
-                            src={meta.creator.avatar || "/images/default-avatar.png"} 
-                            alt={meta.creator.name} 
-                            className="sr__creator-avatar" 
-                            onError={(e: any) => { e.target.src = "/images/default-avatar.png"; }}
-                        />
+                        {meta.creator.avatar && !creatorAvatarError ? (
+                            <img
+                                src={meta.creator.avatar}
+                                alt={meta.creator.name}
+                                className="sr__creator-avatar"
+                                onError={() => setCreatorAvatarError(true)}
+                            />
+                        ) : (
+                            <div className="sr__creator-avatar-fallback">
+                                <FaUserCircle />
+                            </div>
+                        )}
                         <div className="sr__creator-info">
                             <span className="sr__creator-label">Shared by</span>
                             <span className="sr__creator-name">{meta.creator.name}</span>
@@ -173,7 +282,7 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
                         </div>
                     </div>
                 )}
-                
+
                 {meta?.stats && (
                     <div className="sr__stats">
                         {isUser ? (
@@ -225,27 +334,27 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
                         <div className="sr__divider" />
                         <div className="sr__intelligent-redirect">
                             <div className="sr__progress-track">
-                                <div 
-                                    className="sr__progress-bar" 
-                                    style={{ 
+                                <div
+                                    className="sr__progress-bar"
+                                    style={{
                                         width: `${hasRedirected ? 100 : ((3 - countdown) / 3) * 100}%`,
                                         transition: countdown === 3 ? 'none' : 'width 1s linear'
-                                    }} 
+                                    }}
                                 />
                             </div>
                             <div className="sr__redirect-info">
                                 <div className="sr__status-row">
                                     {!hasRedirected && !isPaused && <div className="sr__spinner" />}
                                     <span className="sr__status-text">
-                                        {hasRedirected 
-                                            ? 'Opening Studiva App...' 
-                                            : isPaused 
-                                                ? 'Redirection paused' 
+                                        {hasRedirected
+                                            ? 'Opening Studiva App...'
+                                            : isPaused
+                                                ? 'Redirection paused'
                                                 : `Opening app in ${countdown}s...`}
                                     </span>
                                 </div>
-                                <button 
-                                    className="sr__action-btn" 
+                                <button
+                                    className="sr__action-btn"
                                     onClick={() => setIsPaused(!isPaused)}
                                 >
                                     {isPaused ? 'Resume' : 'Pause'}
@@ -256,7 +365,7 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
                 )}
 
                 <div className="sr__divider" />
-                
+
                 <button id="open-app-btn" className="sr__btn-primary" onClick={handleOpenApp}>
                     <FaExternalLinkAlt style={{ marginRight: '8px' }} />
                     Open in Studiva App
@@ -276,7 +385,7 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
                 </div>
 
                 <div className="sr__footer">
-                    Powered by 
+                    Powered by
                     <a href="https://www.crine.in" target="_blank" rel="noopener noreferrer" className="sr__crine-link">
                         <img src="https://www.crine.in/crine-logo.svg" alt="CRINE Logo" className="sr__crine-logo" />
                         <strong>CRINE</strong>

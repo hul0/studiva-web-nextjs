@@ -73,7 +73,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : `${title} | Studiva`;
 
   const url = `https://www.studiva.co.in/share/${kind}/${id}`;
-  const appDeepLink = `studiva://${kind}/${id}`;
+
+  const contentTypeToPlural: Record<string, string> = {
+    quiz: 'quizzes',
+    quizzes: 'quizzes',
+    flashcard: 'flashcards',
+    flashcards: 'flashcards',
+    lesson: 'lessons',
+    lessons: 'lessons',
+    course: 'courses',
+    courses: 'courses',
+    playlist: 'playlists',
+    playlists: 'playlists',
+    note: 'content',
+    content: 'content',
+  };
+
+  let appDeepLink = `studiva://${kind}/${id}`;
+  if (kind !== 'user') {
+    const contentTypeName = data.content_type || kind;
+    const pluralKind = contentTypeToPlural[contentTypeName] || kind;
+    appDeepLink = `studiva://${pluralKind}/${id}`;
+  }
 
   return {
     title: pageTitle,

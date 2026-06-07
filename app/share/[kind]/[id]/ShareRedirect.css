@@ -656,3 +656,60 @@
   background: rgba(242, 86, 35, 0.1);
 }
 
+/* ── Fallback Avatars ─────────────────────────── */
+.sr__avatar-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sr__avatar-fallback svg {
+  width: 70%;
+  height: 70%;
+  color: var(--text-3);
+  opacity: 0.6;
+}
+
+.sr__creator-avatar-fallback {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--surface-3);
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+
+.sr__creator-avatar-fallback svg {
+  width: 24px;
+  height: 24px;
+  color: var(--text-3);
+  opacity: 0.6;
+}
+
+/* ── Fallback Content Banner ─────────────────── */
+.sr__content-fallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(var(--surface-rgb), 0.5), rgba(var(--surface-rgb), 0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+}
+
+.sr__content-fallback svg {
+  width: 48px;
+  height: 48px;
+  color: var(--accent);
+  filter: drop-shadow(0 4px 12px rgba(242, 86, 35, 0.2));
+  opacity: 0.85;
+}
+
