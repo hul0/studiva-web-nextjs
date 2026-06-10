@@ -111,7 +111,7 @@ const Features = () => {
                         <div className="bento-bottom-row">
                             <div className="bento-item bento-card bento-card-black logotype-card">
                                 <div className="bento-logo-center">
-                                    <Image src="/images/studiva-quill-icon.svg" alt="Studiva official quill icon" width={64} height={64} className="bento-logo-img" />
+                                    <Image src="/images/studiva-butterfly.webp" alt="Studiva official butterfly icon" width={64} height={64} className="bento-logo-img" />
                                     <h2>STUDIVA™</h2>
                                 </div>
                             </div>

@@ -423,9 +423,10 @@
 }
 
 .bento-logo-img {
-  width: 48px;
-  height: 48px;
+  width: 58px;
+  height: 58px;
   object-fit: contain;
+  border-radius: 50%;
 }
 
 .bento-abs-bl {

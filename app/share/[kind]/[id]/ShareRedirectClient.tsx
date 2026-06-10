@@ -207,7 +207,7 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
                 <div className="sr__card">
                     <div className="sr__header-row">
                         <div className="sr__header">
-                            <img src="/images/studiva-quill-icon.svg" alt="Studiva" className="sr__logo" />
+                            <img src="/images/studiva-butterfly.webp" alt="Studiva Logo" className="sr__logo" />
                             <span className="sr__brand">Studiva</span>
                         </div>
                         <div className="sr__pill">

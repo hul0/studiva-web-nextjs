@@ -80,17 +80,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000000;
-  border-radius: 11px;
   position: relative;
   overflow: hidden;
 }
 
 .nav__logo-img {
-  width: 22px;
-  height: 22px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
-  mix-blend-mode: screen;
+  border-radius: 50%;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 

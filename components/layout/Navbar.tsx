@@ -156,7 +156,7 @@ const Navbar = () => {
                     >
                         <div className="nav__logo-icon">
                             <img
-                                src="/images/studiva-quill-icon.svg"
+                                src="/images/studiva-butterfly.webp"
                                 alt="Studiva Logo"
                                 className="nav__logo-img"
                             />

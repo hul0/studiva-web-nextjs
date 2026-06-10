@@ -80,7 +80,9 @@ const Footer = () => {
     ];
 
     const socials = [
-        { name: 'INSTAGRAM', url: 'https://instagram.com/studiva.hq' }
+        { name: 'INSTAGRAM', url: 'https://instagram.com/studiva.co.in' },
+        { name: 'TWITTER', url: 'https://twitter.com/studiva_hq' },
+        { name: 'MEDIUM', url: 'https://medium.com/@studva' }
     ];
 
     useGSAP(() => {

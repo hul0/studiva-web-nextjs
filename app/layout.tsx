@@ -79,7 +79,7 @@ const jsonLd = {
   "@type": "Organization",
   "name": "Studiva",
   "url": "https://www.studiva.co.in",
-  "logo": "https://www.studiva.co.in/images/studiva-logo.svg",
+  "logo": "https://www.studiva.co.in/images/studiva-butterfly.webp",
   "description": "A platform for students to share and access free study materials, MAKAUT Notes, and WBJEE Notes while earning from ad rewards.",
   "sameAs": [
     "https://www.instagram.com/studiva.co.in"
