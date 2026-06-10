@@ -1,7 +1,11 @@
-'use client';
-
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import './legal.css';
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "Read Studiva's Privacy Policy. Learn how we handle student data, protect your privacy, and manage free study materials securely.",
+};
 
 export default function PrivacyPage() {
     return (

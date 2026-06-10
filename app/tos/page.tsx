@@ -1,7 +1,11 @@
-'use client';
-
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import './legal.css';
+
+export const metadata: Metadata = {
+  title: "Terms of Service",
+  description: "Read Studiva's Terms of Service. Learn about our community guidelines, user responsibilities, and free educational sharing policies.",
+};
 
 export default function TOSPage() {
     return (

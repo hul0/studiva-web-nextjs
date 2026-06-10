@@ -84,13 +84,13 @@ const Hero = () => {
                 <div className="hero__bottom-row">
                     <div className="hero__bottom-left gsap-sub">
                         <p className="hero__sub section-sub">
-                            A note marketplace that respects your time.
-                            Earn through paid sales and rewarded ads — <strong>no forced ads, ever.</strong>
+                            A free academic platform that respects your time.
+                            Access premium resources and earn rewards through ad-support — <strong>no forced ads, ever.</strong>
                         </p>
                         <div className="hero__stats gsap-stats">
                             <div className="hero__stat">
                                 <Users size={18} />
-                                <span><strong>650+</strong> Early Adopters</span>
+                                <span><strong>900+</strong> Students</span>
                             </div>
                             <div className="hero__stat">
                                 <Rocket size={18} />

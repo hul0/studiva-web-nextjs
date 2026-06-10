@@ -15,14 +15,14 @@ const steps = [
         color: 'var(--lime-green)'
     },
     {
-        title: 'Set your price',
-        desc: 'Choose free, paid, or ad-supported access.',
+        title: 'Set access mode',
+        desc: 'Choose free or ad-supported reward access.',
         icon: <Banknote size={32} strokeWidth={1.5} />,
         color: '#ffffff'
     },
     {
         title: 'Students unlock it',
-        desc: 'Learners pay or watch ads to access notes.',
+        desc: 'Learners unlock for free or support via ad rewards.',
         icon: <Unlock size={32} strokeWidth={1.5} />,
         color: 'var(--soft-ivory)'
     },

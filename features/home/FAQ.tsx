@@ -8,48 +8,48 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './FAQ.css';
 
 const faqCategories = [
-    { id: 'funding', label: 'FUNDING', icon: <FileText size={16} strokeWidth={2.5} /> },
-    { id: 'repayments', label: 'REPAYMENTS', icon: <RefreshCw size={16} strokeWidth={2.5} /> },
+    { id: 'resources', label: 'RESOURCES', icon: <FileText size={16} strokeWidth={2.5} /> },
+    { id: 'rewards', label: 'REWARDS', icon: <RefreshCw size={16} strokeWidth={2.5} /> },
     { id: 'general', label: 'GENERAL', icon: <HelpCircle size={16} strokeWidth={2.5} /> },
 ];
 
 const faqsData: Record<string, { q: string, a: string }[]> = {
-    funding: [
+    resources: [
         {
-            q: 'HOW QUICKLY CAN I ACCESS THE FUNDS?',
-            a: "Once your notes are unlocked by a student, the funds are instantly credited to your Studiva Wallet. You can withdraw them to your bank account via requesting us after 30-days",
+            q: 'WHAT KIND OF STUDY NOTES CAN I FIND ON STUDIVA?',
+            a: 'Studiva offers a wide range of academic resources, specializing in college syllabus prep. You can find comprehensive MAKAUT Notes, WBJEE Notes for engineering entrance exams, semester-wise lecture notes, and solved question papers—all for free.',
         },
         {
-            q: 'WHAT CAN I USE THE FUNDING FOR?',
-            a: 'The earnings are yours to keep! You can use them for your tuition, books, gadgets, or even just for your daily expenses.',
+            q: 'HOW DO I DOWNLOAD OR ACCESS THE NOTES?',
+            a: 'You can access all notes instantly on the Studiva app. Simply search for your target topic (e.g., MAKAUT computer science or WBJEE physics prep) and view them. Access is completely free for students.',
         },
         {
-            q: 'HOW DO I KNOW THAT MY COMPANY IS A GOOD MATCH?',
-            a: 'Studiva is a marketplace for students, by students. If you have well-structured, high-quality notes that helped you succeed, you are a perfect match to become a creator on our platform.',
-        },
-        {
-            q: 'CAN I PAY TO SUPPLIERS ABROAD?',
-            a: 'Currently, Studiva processes payouts primarily to Indian bank accounts via UPI and NEFT. We are working on expanding our payout options for international creators soon.',
+            q: 'HOW DO YOU PREVENT PLAGIARISM AND PIRACY?',
+            a: 'Notes on Studiva are served in a secure viewer that prevents direct downloading and screenshots. Your uploaded study materials stay secure, protecting your intellectual property.',
         },
     ],
-    repayments: [
+    rewards: [
         {
-            q: 'WHAT IS THE REVENUE SPLIT?',
-            a: 'You keep 90% of all direct sales. For rewarded ad unlocks, we split the ad revenue 50/50.',
+            q: 'HOW DO CREATORS EARN REWARDS?',
+            a: 'We share ad revenue generated from non-intrusive rewarded ads. When a student unlocks your note for free by viewing a quick ad, the revenue is split 50/50 and instantly credited to your Studiva Wallet.',
+        },
+        {
+            q: 'HOW DO I WITHDRAW MY EARNINGS?',
+            a: 'Once your wallet reaches the minimum withdrawal threshold of ₹100, you can request a direct transfer to your Indian bank account via UPI or NEFT. Payouts are processed within 30 days of verification.',
         },
         {
             q: 'ARE THERE ANY HIDDEN FEES?',
-            a: 'No hidden fees. We only take a platform fee when a transaction is successful.',
-        }
+            a: 'No hidden fees. It is completely free to upload notes and free to access them. We only monetize through advertising and optional premium subscriptions.',
+        },
     ],
     general: [
         {
             q: 'IS THERE A LIMIT ON UPLOADS?',
-            a: 'No! You can upload an unlimited number of notes. The more you upload, the higher your chances of earning.',
+            a: 'No! You can upload an unlimited number of study materials. The more high-quality notes (like MAKAUT study sheets or WBJEE question guides) you share, the more learners you help, and the more rewards you earn.',
         },
         {
-            q: 'HOW DO YOU PREVENT PIRACY?',
-            a: 'Notes on Studiva are served in a secure viewer that prevents direct downloading and screenshots. Your content stays yours, always!',
+            q: 'DOES STUDIVA CHARGE FOR STUDY MATERIALS?',
+            a: 'Never. Our mission is to democratize education. Studiva promotes free study notes for everyone. We do not use buy and sell mechanics, keeping high-quality education accessible to all.',
         }
     ]
 };
@@ -85,7 +85,7 @@ FAQItem.displayName = 'FAQItem';
 
 const FAQ = () => {
     const sectionRef = useRef<HTMLElement>(null);
-    const [activeCategory, setActiveCategory] = useState('general');
+    const [activeCategory, setActiveCategory] = useState('resources');
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);

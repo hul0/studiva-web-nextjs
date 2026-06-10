@@ -12,8 +12,8 @@ import FAQ from '@/features/home/FAQ';
 import FinalCTA from '@/features/home/FinalCTA';
 
 export const metadata: Metadata = {
-  title: "Studiva | Your Academic Companion",
-  description: "The ultimate marketplace for students. Buy and sell notes, earn through rewarded ads, and join a thriving community of creators.",
+  title: "Studiva | Free Study Notes, MAKAUT Notes & WBJEE Notes",
+  description: "Access high-quality study resources for free on Studiva. Get MAKAUT syllabus notes, WBJEE preparation materials, and solved papers. Share your notes and earn rewards.",
 };
 
 export default function Home() {

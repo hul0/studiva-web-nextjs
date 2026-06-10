@@ -8,7 +8,7 @@ import './CreatorEconomy.css';
 
 const statsData = [
     {
-        desc: 'Revenue share we provide our creators on every sale.',
+        desc: 'Revenue share we provide our creators on ad rewards and downloads.',
         value: 90,
         suffix: '%',
         prefix: ''
