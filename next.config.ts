@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ["10.228.148.201"],
+  allowedDevOrigins: ["10.228.148.201", "10.93.139.190"],
 
   // ---------------------------------------------------------------------------
   // Sitemap rewrites – serve XML sitemaps directly from the CDN.

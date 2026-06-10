@@ -412,108 +412,134 @@
 @media (max-width: 1024px) {
   .hero {
     height: auto;
-    padding: 120px 5% 60px;
+    min-height: 100vh;
+    padding: 120px 0 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero__inner {
-    text-align: center;
-  }
-
-  .hero__title {
-    font-size: clamp(48px, 14vw, 86px);
-  }
-
-  .hero__bottom-row {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero__visual-container {
+    display: none !important;
+  }
+
+  .hero__left-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__text-layer {
+    position: relative !important;
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    text-align: center !important;
+    max-width: 100% !important;
+    margin-bottom: 24px !important;
+  }
+
+  .hero__title {
+    text-align: center !important;
+    font-size: clamp(40px, 10vw, 76px) !important;
+    line-height: 1.0;
+    margin: 0 0 16px !important;
+  }
+
+  .hero__bottom-row {
+    position: relative !important;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-top: 0 !important;
   }
 
   .hero__bottom-left {
-    display: contents;
-    /* Break wrapper to allow children to participate in flex order */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    max-width: 100% !important;
   }
 
   .hero__sub {
-    max-width: 100% !important;
     text-align: center !important;
-    margin: 0 !important;
-    order: 1;
-    /* Description first */
-  }
-
-  .hero__bottom-right {
-    justify-content: center;
-    order: 2;
-    /* Buttons below description */
+    max-width: 540px !important;
+    margin: 0 auto 20px !important;
+    font-size: 1.05rem !important;
   }
 
   .hero__stats {
+    display: flex !important;
     justify-content: center !important;
-    order: 3;
-    /* Stats completely below the buttons */
-    margin-top: 8px;
-    /* Extra breathing room */
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100%;
+  }
+
+  .hero__bottom-right {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 16px !important;
+    width: 100% !important;
   }
 }
 
 @media (max-width: 640px) {
   .hero {
-    padding: 110px 5% 48px;
-    min-height: calc(100vh - 20px);
-  }
-
-  .hero__text-layer {
-    top: 0;
+    padding: 100px 0 40px;
   }
 
   .hero__title {
-    font-size: clamp(40px, 12vw, 72px);
-    letter-spacing: -2px;
+    font-size: clamp(34px, 11vw, 52px) !important;
+    letter-spacing: -1.5px;
   }
 
-  .hero__bottom-row {
-    gap: 20px;
-  }
-
-  /* Stack buttons vertically and fill width */
   .hero__bottom-right {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    gap: 12px;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
   }
 
-  .brutalist-button {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .fancy {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .fancy .text {
-    text-align: center;
+  .brutalist-button, .fancy {
+    width: 100% !important;
+    justify-content: center !important;
   }
 
   .hero__stats {
-    gap: 10px;
-    justify-content: center;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px !important;
   }
 
   .hero__stat {
-    font-size: 13px;
-    padding: 8px 16px;
-    gap: 8px;
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
   }
 }
 
 @media (max-width: 380px) {
   .hero__title {
-    font-size: 36px;
+    font-size: 32px;
     letter-spacing: -1.5px;
   }
 
