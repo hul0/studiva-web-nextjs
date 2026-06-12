@@ -1,6 +1,6 @@
 Terms of Service for Studiva
 
-Last Updated: April 28, 2026
+Last Updated: June 6, 2026
 
 Welcome to Studiva! These Terms of Service ("Terms") govern your access to and use of the Studiva mobile application and services (the "Service"), provided by CRINE. By using the Service, you agree to be bound by these Terms.
 
@@ -9,54 +9,60 @@ By creating an account or accessing the Service, you confirm that you are at lea
 
 2. User Accounts
 - Account Accuracy: You must provide accurate and complete information when registering.
-- Account Security: You are responsible for maintaining the confidentiality of your account credentials.
+- Account Security: You are responsible for maintaining the confidentiality of your account credentials (such as Firebase auth tokens).
 - Responsibility: You are responsible for all activities that occur under your account.
 
 3. Content and Intellectual Property
 
 3.1 Your Content
-- Ownership: You retain ownership of the study materials, messages, and other content you upload.
-- License to CRINE: By posting content, you grant CRINE a worldwide, non-exclusive, royalty-free, sublicensable license to use, host, store, reproduce, modify, publish, and distribute your content for the purpose of operating and improving the Service.
+- Ownership: You retain ownership of the study notes, PDFs, flashcards, playlists, and comments you upload or create.
+- License to CRINE: By posting content, you grant CRINE a worldwide, non-exclusive, royalty-free, sublicensable license to use, host, store, reproduce, modify, publish, and distribute your content for the purpose of operating, improving, and displaying the Service.
+- Content Protection: For safety and copyright enforcement, we apply automatic visual watermarking to uploaded study documents and PDFs.
 
 3.2 Our Content
-Studiva and its logos, designs, and software are the intellectual property of CRINE. You may not use them without our prior written consent.
+Studiva and its logos, designs, custom tactile assets, and software are the intellectual property of CRINE. You may not use them without our prior written consent.
 
 3.3 Copyright Policy (DMCA)
-We respect intellectual property rights. If you believe your copyright has been infringed, please contact us at support@crine.in with a formal takedown request.
+We respect intellectual property rights. If you believe your copyright has been infringed, please contact us at support@crine.in with a formal takedown request containing proof of ownership.
 
 4. Virtual Currencies and Rewards
 
 4.1 Sparks (Status Currency)
-Sparks are non-monetary virtual points used to measure status and rank within the Service. Sparks have no monetary value and cannot be redeemed for cash or other assets.
+Sparks are non-monetary virtual points used to measure status, milestones, and rankings within the Service. Sparks have no independent monetary value, cannot be redeemed for cash, and can only be used within the app's gamification system (e.g., purchasing streak shields, avatar cosmetics, or custom profile frames).
 
 4.2 Emeralds (Reward Points)
-- Nature: Emeralds are virtual platform points awarded as part of our revenue-sharing model.
-- No Monetary Value: Emeralds are not a legal currency. They have no value outside the Service's redemption framework.
-- Redemption: You may redeem Emeralds for "Studiva Gift Cards" or other rewards offered within the app, subject to our minimum withdrawal thresholds and verification.
+- Nature: Emeralds (EMD) are virtual platform points awarded as part of our revenue-sharing model (such as ad impressions served on your notes) and note-sharing sales.
+- No Expiration: Emeralds earned on the platform do not expire.
+- Conversion and Redemption: Emeralds have no value outside the Service's redemption framework. You may request to redeem Emeralds for "Studiva Gift Cards" or other rewards (such as UPI/Paytm or Amazon vouchers) through our wallet page, subject to manual verification.
+- Minimum Threshold: The minimum withdrawal threshold is 5,000 Emeralds (which is valued at ₹100 INR in Studiva Gift Cards). No redemptions will be processed below this limit.
 
-4.3 Revenue Sharing
-Our revenue-sharing model (e.g., sharing ad revenue with creators) is a discretionary reward program and does not constitute an employment relationship or a guaranteed income. Amounts are calculated based on verified ad revenue and platform engagement metrics.
+4.3 Revenue Sharing and Sponsoring
+Our revenue-sharing models (such as ad-share payouts or content unlocks) are discretionary reward programs and do not constitute an employment relationship or a guaranteed income. Payouts are calculated based on verified ad impressions and genuine platform engagement.
+- Paid Content & Courses: Creators may set notes lock prices between 10 and 500 EMD. Course sales are shared at a rate of 70% in Emeralds to the creator.
+- Power Tips: Creators receive 80% of virtual tips (Power Tips) after platform processing cuts.
 
-5. Prohibited Conduct
-You agree not to:
-- Use automated systems (bots) to simulate study time or "farm" Sparks and Emeralds.
-- Upload content that is illegal, defamatory, or violates intellectual property rights.
-- Harass other users or disrupt community features (battles, groups).
-- Attempt to hack, reverse-engineer, or compromise the Service's security.
+5. Studiva Premium
+- Activation: Studiva Premium is an upgraded, non-recurring membership tier. It can be purchased/activated for 30 days at the rate of 2,500 Emeralds. There is no recurring automatic billing or traditional monthly credit card subscription plan.
+- Benefits: Activations grant ad-free feed access, a golden profile verification tick, a golden animated frame, one free daily spin in the Spin the Wheel game, free notes previews, and direct local downloads.
+- Refunds: Emerald purchases of Studiva Premium memberships are final and non-refundable.
 
-6. Subscriptions and Payments
-- Tiers: We offer Free and Pro Plans. Pricing, validity and benefits are subject to change.
-- Refunds: Payments for subscriptions or direct Emerald purchases are generally non-refundable, except as required by law.
+6. Prohibited Conduct and Anti-Cheat Policy
+You agree not to engage in any activity that cheats or manipulates the Service's gamification, ad revenue, or reward models. Prohibited behaviors include:
+- Using automated systems (bots, auto-clickers, macro recorders, or scripts) to simulate study time, automate quizzes, or farm Sparks and Emeralds.
+- Accessing the Service via Android/iOS emulators, virtual machines, or sandboxes to bypass focus tracking or device fingerprinting.
+- Installing, utilizing, or running ad-blocking software, DNS filters, or modifications that block, disable, or tamper with ad displays, video players, or rewarded ad placements.
+- Tampering with system clocks, local databases (Hive caches), network traffic, or APIs to manipulate daily login streaks, daily goal completion, spin wheel timers, or focus study logs.
+- Scraping, spamming, abusing, or sending automated queries to the Photon Study Assistant (Google Gemini & Groq APIs).
+- Harassing other users, posting defamatory, illegal, or offensive study notes, or creating duplicate accounts to exploit referral bounties.
 
-7. Termination
-We reserve the right to suspend or terminate your account at any time, with or without notice, if we believe you have violated these Terms or engaged in fraudulent activity.
+Violation of these rules will result in immediate account termination, forfeiture of all Sparks and Emeralds, and potential blocking of your device and IP address.
 
-8. Disclaimers and Limitation of Liability
-- As-Is Basis: The Service is provided "as is" and "as available" without warranties of any kind.
-- Limitation of Liability: To the maximum extent permitted by law, CRINE shall not be liable for any indirect, incidental, or consequential damages arising from your use of the Service or loss of user-generated content.
+7. Disclaimers and Limitation of Liability
+- As-Is Basis: The Service, including the Photon Study Assistant and study explanations, is provided "as is" and "as available" without warranties of any kind. We make no guarantees regarding the academic accuracy of answers generated by the study helper APIs (Google Gemini/Groq) or exam readiness.
+- Limitation of Liability: To the maximum extent permitted by law, CRINE shall not be liable for any indirect, incidental, or consequential damages arising from your use of the Service, loss of user-generated content, or academic performance.
 
-9. Governing Law
+8. Governing Law
 These Terms are governed by the laws of India. Any disputes arising from these Terms will be subject to the exclusive jurisdiction of the courts in India.
 
-10. Contact Us
-For any questions regarding these Terms, please contact support@crine.in or visit crine.in
+9. Contact Us
+For any questions regarding these Terms, please contact support@crine.in or visit crine.in.

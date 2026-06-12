@@ -1,68 +1,80 @@
 Privacy Policy for Studiva
 
-Last Updated: April 28, 2026
+Last Updated: June 12, 2026
 
 Studiva ("we," "our," or "us"), a product by CRINE, is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and share information when you use the Studiva mobile application and services (collectively, the "Service").
 
 1. Information We Collect
 
 1.1 Personal Information You Provide
-- Account Information: When you register, we collect your name, email address and username.
-- Profile Information: Optional information such as your photo (avatar), bio, college/institution name, and exam type (e.g., JEE, NEET, UPSC).
+- Account Information: When you register, we collect your name, email address, and username.
+- Profile Information: Optional information such as your profile customization settings (including Dicebear avatar generation seeds), bio, college/institution name, and exam type (e.g., JEE, NEET, UPSC).
 - Communication: Information you provide when contacting support or participating in community forums, group chats, or live sessions.
 
 1.2 User-Generated Content
 - Study Materials: Notes, PDFs, flashcards, and playlists you upload or create.
-- Social Interactions: Stories, comments, messages, and battle results.
+- Social Interactions: Stories, comments, messages, poll votes, and battle results.
 - Quiz Performance: Your scores, attempt history, and progress.
 
 1.3 Information Collected Automatically
 - Usage Data: We track your study habits, including session duration, subjects studied, daily goals, streaks, and XP progression.
-- Device and Log Information: IP address, device type, operating system, device identifiers (IDFA/AAID), and app version.
+- Device and Log Information: IP address, device type, brand, model, operating system version, device identifiers (including Android build fingerprint, iOS identifier for vendor, and advertising identifiers like IDFA/AAID), push notification (FCM) tokens, and app version. This data is collected to authenticate access, secure user accounts, detect and prevent fraud, and prevent system abuse.
 - Ad Interactions: We collect data on the advertisements shown to you and your interactions with them (impressions, clicks, rewarded ad completions).
 
 1.4 Financial and Transaction Data
 - Virtual Currency: Records of your Earned Sparks and Emeralds.
-- Redemption Data: Information required to process reward redemptions (e.g., UPI ID or gift card delivery details).
+- Redemption Data: Information required to process reward redemptions (e.g., username, Emerald balance, and UPI ID or email for gift card delivery).
 
 2. How We Use Your Information
 
 We use the collected information for the following purposes:
-- Service Provision: To operate and maintain the social learning platform, including study tracking and leaderboards.
-- Personalization: To tailor your feed and provide AI-driven features like your "Study Persona" and personalized study plans.
+- Service Provision: To operate and maintain the social learning platform, including study tracking, interactive lessons, and leaderboards.
+- Personalization: To tailor your feed and provide smart helper features like your "Study Persona," personalized study plans, and content suggestions.
+- Smart Assistant Features: To process text inputs, snapped photos, notes, and study files via the Photon Study Assistant. Chat logs and history are cached locally on your device.
 - Rewards System: To manage virtual currencies (Sparks and Emeralds), calculate earnings, and process redemptions.
 - Monetization: To serve relevant advertisements and facilitate creator earnings.
 - Communication: To send app-related notifications, streak alerts, and updates.
-- Security & Fraud Prevention: To protect against unauthorized access, detect fraudulent earning activities (via device fingerprinting), and ensure community safety.
+- Security & Fraud Prevention: To protect against unauthorized access, detect fraudulent earning activities (such as simulated study time, automated clicks, or emulators) via device fingerprinting, IP validation, and rate-limit tracking, and to ensure community safety.
 
-3. Sharing of Information
+3. Data Processing and Storage
 
-3.1 With Other Users
+3.1 Local Storage
+We utilize local storage (specifically Hive) on your mobile device to store application settings, user session configurations, and cached chat logs/history for the Photon Study Assistant. Caching this data locally ensures low-latency performance and offline access.
+
+3.2 AI Integration (Gemini & Groq APIs)
+To power the Photon Study Assistant, Doubt Snap photo recognition, and notes summarization features, user-submitted prompts, worksheets, and note contents are securely transmitted to and processed by third-party large language model APIs, specifically:
+- Google Gemini API
+- Groq API
+These services process the content to generate step-by-step explanations, metadata suggestions, and interactive explanations. This data is not used to train public models.
+
+4. Sharing of Information
+
+4.1 With Other Users
 Your username, profile picture, rank, badges, and publicly shared content are visible to other users on leaderboards, in feeds, and within social features.
 
-3.2 Third-Party Service Providers
+4.2 Third-Party Service Providers
 We share information with third parties that help us provide the Service:
-- Infrastructure & Authentication: Supabase & Cloudflare R2 (Storage), Cloudflare (CDN), Firebase (Auth), Turso (Database).
-- AI Services: Google Gemini (for Doubt Snap and study assistance).
+- Infrastructure & Authentication: Cloudflare (CDN, Storage), Firebase (Auth, Analytics), and Turso (Database).
+- AI & Processing APIs: Google Gemini API and Groq API.
 
-3.3 Advertising Partners
-To provide our free and reward-based service, we share limited device identifiers with advertising networks:
-- Google AdMob
+4.3 Advertising Partners and Mediation Stack
+To deliver our ad-supported reward services, we integrate with Google AdMob and the AppLovin MAX mediation stack. Limited device identifiers (such as IDFA/AAID) and basic ad interaction records are shared with these networks and their demand partners (including Meta Audience Network, Unity, and ironSource) to serve personalized or contextual advertisements. You can opt out of personalized tracking via your device's system settings.
 
-These partners may use this data to serve personalized ads. You can manage your ad preferences via your device settings.
+4.4 Search Engine Indexing
+To improve the discoverability of public educational resources, basic public metadata regarding your profile (such as your username, bio, and profile picture) and public content titles/descriptions may be indexed by external search engines (e.g., Google). We explicitly safeguard your sensitive study materials and original uploaded documents (such as full PDFs or videos); direct links to these source files are never exposed to search engine crawlers.
 
-4. Virtual Currencies (Sparks & Emeralds)
+5. Virtual Currencies (Sparks & Emeralds)
 
 - Sparks: Non-monetary status points used for gamification and rank. History of Sparks earned is stored to maintain the integrity of leaderboards.
-- Emeralds: Reward points earned via ad revenue sharing. Transactions involving Emeralds are recorded for auditing and payout processing.
+- Emeralds: Reward points earned via ad revenue sharing and note sales. Emeralds do not expire, but transactions involving Emeralds are recorded for auditing and payout processing to prevent fraud.
 - No Cash Value: Emeralds represent virtual points and have no independent monetary value outside the Service's redemption framework.
 
-5. Data Security and Retention
+6. Data Security and Retention
 
 - Security: We use industry-standard encryption and security measures to protect your data.
 - Retention: We retain your personal information as long as your account is active. If you delete your account, we may retain certain information for legal compliance, fraud prevention, or to resolve disputes.
 
-6. Your Rights and Choices
+7. Your Rights and Choices
 
 Depending on your location, you may have the right to:
 - Access the personal data we hold about you.
@@ -70,14 +82,14 @@ Depending on your location, you may have the right to:
 - Opt-out of personalized advertising.
 - Set your profile to private to limit visibility.
 
-7. Children's Privacy
+8. Children's Privacy
 
 The Service is intended for students aged 13 and above (or the minimum age required by local law). We do not knowingly collect data from children under this age without parental consent.
 
-8. Changes to This Policy
+9. Changes to This Policy
 
 We may update this Privacy Policy from time to time. We will notify you of any significant changes by posting the new policy in the app or via email.
 
-9. Contact Us
+10. Contact Us
 
-If you have any questions about this Privacy Policy, please contact us at support@crine.in or visit crine.in
+If you have any questions about this Privacy Policy, please contact us at support@crine.in or visit crine.in.
