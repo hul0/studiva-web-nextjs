@@ -6,8 +6,8 @@ const nextConfig: NextConfig = {
   // ---------------------------------------------------------------------------
   // Sitemap rewrites – serve XML sitemaps directly from the CDN.
   //
-  //   /sitemap.xml         → https://cdn.crine.in/sitemaps/sitemap-index.xml
-  //   /sitemaps/:file.xml  → https://cdn.crine.in/sitemaps/:file.xml
+  //   /sitemap.xml         → https://cdn2.crine.in/sitemaps/sitemap-index.xml
+  //   /sitemaps/:file.xml  → https://cdn2.crine.in/sitemaps/:file.xml
   //
   // This replaces the old app/sitemap.ts approach (fetch → parse → re-emit).
   // The CDN already hosts the fully-formed XML; no need to re-process it.
@@ -16,11 +16,11 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/sitemap.xml",
-        destination: "https://cdn.crine.in/sitemaps/sitemap-index.xml",
+        destination: "https://cdn2.crine.in/sitemaps/sitemap-index.xml",
       },
       {
         source: "/sitemaps/:path*",
-        destination: "https://cdn.crine.in/sitemaps/:path*",
+        destination: "https://cdn2.crine.in/sitemaps/:path*",
       },
     ];
   },
