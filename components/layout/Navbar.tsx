@@ -233,7 +233,7 @@ const Navbar = () => {
                     ))}
                     <div style={{ padding: '8px 4px 0' }}>
                         <Link href="/#download" onClick={(e) => scrollToSection(e, '#download')} className="btn-primary" style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '48px', alignItems: 'center' }}>
-                            Join 900+ Students
+                            Join 1100+ Students
                         </Link>
                     </div>
                 </div>

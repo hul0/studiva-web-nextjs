@@ -2,7 +2,6 @@
 
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import {
-    FaGooglePlay,
     FaInstagram,
     FaExternalLinkAlt,
     FaUserCircle,
@@ -14,9 +13,10 @@ import {
     FaGlobe,
     FaApple,
     FaAndroid,
-    FaCheckCircle,
+    FaGooglePlay,
 } from 'react-icons/fa';
 import './ShareRedirect.css';
+import { FaX, FaXTwitter } from 'react-icons/fa6';
 
 type ShareRedirectClientProps = {
     kind: string;
@@ -26,10 +26,8 @@ type ShareRedirectClientProps = {
 
 export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClientProps) {
     const [device, setDevice] = useState<'ios' | 'android' | 'desktop'>('desktop');
-    const [hasAttemptedOpen, setHasAttemptedOpen] = useState(false);
     const [avatarError, setAvatarError] = useState(false);
     const [creatorAvatarError, setCreatorAvatarError] = useState(false);
-    const [showAppPrompt, setShowAppPrompt] = useState(false);
 
     const getContentFallbackIcon = (type: string) => {
         const t = type?.toLowerCase() || '';
@@ -116,11 +114,15 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
             detectedDevice: detected
         });
         setDevice(detected);
-
-        // Stagger the app prompt entrance
-        const timer = setTimeout(() => setShowAppPrompt(true), 600);
-        return () => clearTimeout(timer);
     }, []);
+
+    // Auto-redirect mobile devices to the deep link immediately
+    useEffect(() => {
+        if (device !== 'desktop' && deepLink) {
+            console.log('[ShareRedirectClient] Auto-redirecting to deep link:', deepLink);
+            window.location.href = deepLink;
+        }
+    }, [device, deepLink]);
 
     const meta = useMemo(() => {
         if (!initialData) return null;
@@ -170,22 +172,7 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
     const handleOpenApp = useCallback(() => {
         console.log('[ShareRedirectClient] Opening deep link:', deepLink);
         window.location.href = deepLink;
-        setHasAttemptedOpen(true);
-
-        // After attempting deep link, show install prompt if app didn't open
-        setTimeout(() => {
-            setHasAttemptedOpen(true);
-        }, 2000);
     }, [deepLink]);
-
-    const handleGetApp = useCallback(() => {
-        if (device === 'ios') {
-            // Placeholder for future App Store link
-            window.open('https://play.google.com/store/apps/details?id=com.studiva.app', '_blank');
-        } else {
-            window.open('https://play.google.com/store/apps/details?id=com.studiva.app', '_blank');
-        }
-    }, [device]);
 
     const fmt = (n: number) => {
         if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
@@ -203,8 +190,8 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
             <div className="sr__ambient-secondary" aria-hidden="true" />
 
             <div className="sr__container">
-                {/* ── Content Preview Card ── */}
                 <div className="sr__card">
+                    {/* ── Header Row ── */}
                     <div className="sr__header-row">
                         <div className="sr__header">
                             <img src="/images/studiva-butterfly.webp" alt="Studiva Logo" className="sr__logo" />
@@ -216,64 +203,54 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
                         </div>
                     </div>
 
+                    {/* ── Content Preview Section ── */}
                     {isUser ? (
-                        <div className="sr__media sr__media--avatar">
-                            {meta?.image && !avatarError ? (
-                                <img
-                                    src={meta.image}
-                                    alt={meta.title}
-                                    className="sr__media-img"
-                                    onError={() => setAvatarError(true)}
-                                />
-                            ) : (
-                                <div className="sr__avatar-fallback">
-                                    <FaUserCircle />
-                                </div>
-                            )}
+                        <div className="sr__profile-preview">
+                            <div className="sr__media sr__media--avatar">
+                                {meta?.image && !avatarError ? (
+                                    <img
+                                        src={meta.image}
+                                        alt={meta.title}
+                                        className="sr__media-img"
+                                        onError={() => setAvatarError(true)}
+                                    />
+                                ) : (
+                                    <div className="sr__avatar-fallback">
+                                        <FaUserCircle />
+                                    </div>
+                                )}
+                            </div>
+                            <div className="sr__profile-info">
+                                <h1 className="sr__title">{meta?.title || 'User'}</h1>
+                                {meta?.subtitle && <p className="sr__subtitle">{meta.subtitle}</p>}
+                                {meta?.description && <p className="sr__desc">{meta.description}</p>}
+                            </div>
                         </div>
                     ) : (
-                        <div className="sr__media sr__media--preview">
+                        <div className="sr__content-preview">
                             {meta?.image ? (
-                                <img
-                                    src={meta.image}
-                                    alt={meta.title}
-                                    className="sr__media-img"
-                                    onError={(e: any) => { e.target.style.display = 'none'; }}
-                                />
+                                <div className="sr__thumbnail">
+                                    <img
+                                        src={meta.image}
+                                        alt={meta.title}
+                                        className="sr__thumbnail-img"
+                                        onError={(e: any) => { e.target.style.display = 'none'; }}
+                                    />
+                                </div>
                             ) : (
-                                <div className="sr__content-fallback">
+                                <div className="sr__thumbnail sr__thumbnail--fallback">
                                     {getContentFallbackIcon(initialData?.content_type || kind)}
                                 </div>
                             )}
-                        </div>
-                    )}
-
-                    <h1 className="sr__title">{meta?.title || (kind ? `Shared ${typeLabel}` : 'Studiva')}</h1>
-                    {meta?.subtitle && <p className="sr__subtitle">{meta.subtitle}</p>}
-                    {meta?.description && <p className="sr__desc">{meta.description}</p>}
-
-                    {meta?.creator && (
-                        <div className="sr__creator-card">
-                            {meta.creator.avatar && !creatorAvatarError ? (
-                                <img
-                                    src={meta.creator.avatar}
-                                    alt={meta.creator.name}
-                                    className="sr__creator-avatar"
-                                    onError={() => setCreatorAvatarError(true)}
-                                />
-                            ) : (
-                                <div className="sr__creator-avatar-fallback">
-                                    <FaUserCircle />
-                                </div>
-                            )}
-                            <div className="sr__creator-info">
-                                <span className="sr__creator-label">Shared by</span>
-                                <span className="sr__creator-name">{meta.creator.name}</span>
-                                <span className="sr__creator-username">@{meta.creator.username}</span>
+                            <div className="sr__content-info">
+                                <h1 className="sr__title">{meta?.title || `Shared ${typeLabel}`}</h1>
+                                {meta?.subtitle && <p className="sr__subtitle">{meta.subtitle}</p>}
+                                {meta?.description && <p className="sr__desc">{meta.description}</p>}
                             </div>
                         </div>
                     )}
 
+                    {/* ── Stats ── */}
                     {meta?.stats && (
                         <div className="sr__stats">
                             {isUser ? (
@@ -302,7 +279,7 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
                                     <div className="sr__stat-sep" />
                                     <div className="sr__stat">
                                         <span className="sr__stat-val">{fmt(meta.stats.sparks)}</span>
-                                        <span className="sr__stat-label">Sparks</span>
+                                        <span className="sr__stat-label">Likes</span>
                                     </div>
                                     <div className="sr__stat-sep" />
                                     <div className="sr__stat">
@@ -314,100 +291,77 @@ export function ShareRedirectClient({ kind, id, initialData }: ShareRedirectClie
                         </div>
                     )}
 
-                    {meta?.dateText && (
-                        <div className="sr__date-text">
-                            {meta.dateText}
-                        </div>
-                    )}
-                </div>
+                    {/* ── Separator Line ── */}
+                    <div className="sr__divider" />
 
-                {/* ── App Install Prompt ── */}
-                <div className={`sr__app-prompt ${showAppPrompt ? 'sr__app-prompt--visible' : ''}`}>
-                    {/* Open in App Button */}
-                    <button id="open-app-btn" className="sr__btn-open-app" onClick={handleOpenApp}>
-                        <div className="sr__btn-open-app-icon">
-                            <FaExternalLinkAlt />
-                        </div>
-                        <div className="sr__btn-open-app-text">
-                            <span className="sr__btn-open-app-title">Open in Studiva</span>
-                            <span className="sr__btn-open-app-sub">View this {typeLabel.toLowerCase()} in the app</span>
-                        </div>
-                        <svg className="sr__btn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="9 18 15 12 9 6" />
-                        </svg>
-                    </button>
+                    {/* ── Actions Section ── */}
+                    <div className="sr__actions">
+                        {/* 1. Open in App (Primary CTA) */}
+                        <button id="open-app-btn" className="sr__btn-primary" onClick={handleOpenApp}>
+                            <FaExternalLinkAlt className="sr__btn-icon" />
+                            <span>Open in App</span>
+                        </button>
 
-                    {/* Divider with text */}
-                    <div className="sr__or-divider">
-                        <span>Don&apos;t have the app?</span>
-                    </div>
+                        {/* 2. View on Web (Secondary CTA) - only for content */}
+                        {isContent && (
+                            <a
+                                id="view-web-btn"
+                                href={`https://app.studiva.co.in/content/${id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="sr__btn-secondary"
+                            >
+                                <FaGlobe className="sr__btn-icon" />
+                                <span>View on Web</span>
+                            </a>
+                        )}
 
-                    {/* Get the App CTA */}
-                    <button id="get-app-btn" className="sr__btn-get-app" onClick={handleGetApp}>
-                        <div className="sr__btn-get-app-icon">
-                            {device === 'ios' ? <FaApple /> : <FaAndroid />}
-                        </div>
-                        <div className="sr__btn-get-app-text">
-                            <span className="sr__btn-get-app-title">
-                                Get Studiva
-                            </span>
-                            <span className="sr__btn-get-app-sub">
-                                {device === 'ios' ? 'Download on the App Store' : 'Download on Google Play'}
-                            </span>
-                        </div>
-                        <svg className="sr__btn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="9 18 15 12 9 6" />
-                        </svg>
-                    </button>
-
-                    {/* Feature highlights */}
-                    <div className="sr__features">
-                        <div className="sr__feature">
-                            <FaCheckCircle className="sr__feature-icon" />
-                            <span>Interactive quizzes &amp; flashcards</span>
-                        </div>
-                        <div className="sr__feature">
-                            <FaCheckCircle className="sr__feature-icon" />
-                            <span>AI-powered study assistant</span>
-                        </div>
-                        <div className="sr__feature">
-                            <FaCheckCircle className="sr__feature-icon" />
-                            <span>Learn with friends &amp; creators</span>
-                        </div>
-                    </div>
-
-                    {/* Web Coming Soon */}
-                    <div className="sr__web-notice">
-                        <div className="sr__web-notice-icon">
-                            <FaGlobe />
-                        </div>
-                        <div className="sr__web-notice-text">
-                            <span className="sr__web-notice-title">Studiva for Web</span>
-                            <span className="sr__web-notice-sub">Coming soon. We&apos;re crafting the web experience.</span>
-                        </div>
-                    </div>
-
-                    {/* Social Row */}
-                    <div className="sr__social-row">
-                        <a href="https://play.google.com/store/apps/details?id=com.studiva.app" className="sr__social-link" target="_blank" rel="noopener noreferrer">
-                            <FaGooglePlay />
-                            <span>Play Store</span>
+                        {/* 3. Promoted Google Play Button */}
+                        <a
+                            href="https://play.google.com/store/apps/details?id=com.studiva.app&utm_source=studiva.co.in&utm_medium=referral&utm_campaign=studiva-share-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="sr__btn-googleplay"
+                        >
+                            <FaGooglePlay className="sr__btn-icon-large" />
+                            <div className="sr__btn-googleplay-text">
+                                <span className="sr__googleplay-sub">GET IT ON</span>
+                                <span className="sr__googleplay-main">Google Play</span>
+                            </div>
                         </a>
-                        <div className="sr__social-dot" />
-                        <a href="https://instagram.com/studiva.co.in" className="sr__social-link" target="_blank" rel="noopener noreferrer">
-                            <FaInstagram />
-                            <span>Instagram</span>
+
+                        {/* 4. Secondary Sub-Actions */}
+                        <div className="sr__secondary-actions">
+                            <a
+                                href="https://x.com/studiva_hq"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="sr__action-link"
+                            >
+                                <FaXTwitter />
+                                <span>Twitter</span>
+                            </a>
+                            <span className="sr__action-separator">•</span>
+                            <a
+                                href="https://instagram.com/studiva.co.in"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="sr__action-link"
+                            >
+                                <FaInstagram />
+                                <span>Instagram</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* ── Footer ── */}
+                    <div className="sr__card-footer">
+                        Powered by
+                        <a href="https://www.crine.in" target="_blank" rel="noopener noreferrer" className="sr__crine-link">
+                            <img src="https://www.crine.in/crine-logo.svg" alt="CRINE Logo" className="sr__crine-logo" />
+                            <strong>CRINE</strong>
                         </a>
                     </div>
-                </div>
-
-                {/* ── Footer ── */}
-                <div className={`sr__footer ${showAppPrompt ? 'sr__footer--visible' : ''}`}>
-                    Powered by
-                    <a href="https://www.crine.in" target="_blank" rel="noopener noreferrer" className="sr__crine-link">
-                        <img src="https://www.crine.in/crine-logo.svg" alt="CRINE Logo" className="sr__crine-logo" />
-                        <strong>CRINE</strong>
-                    </a>
                 </div>
             </div>
         </div>

@@ -117,7 +117,7 @@ const Features = () => {
                             </div>
 
                             <div className="bento-item bento-card bento-card-white customers-card">
-                                <div className="bento-badge bento-badge-lime">900+ Students</div>
+                                <div className="bento-badge bento-badge-lime">1100+ Students</div>
                             </div>
                         </div>
 
